@@ -13,6 +13,5 @@ RSpec.describe 'index' do
   end
 
   it 'shows all the invoices with at least one of the merchants items' do
-    require 'pry'; binding.pry
   end
 end
