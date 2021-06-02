@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_001026) do
   create_enum :transaction_result, [
     "failed",
     "success",
+    "pending",
   ], force: :cascade
 
   create_table "customers", force: :cascade do |t|
@@ -75,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_001026) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.enum "result", enum_name: "transaction_result"
+    t.enum "result", default: "pending", null: false, enum_name: "transaction_result"
     t.bigint "invoice_id"
     t.bigint "credit_card_number"
     t.string "credit_card_expiration_date"
