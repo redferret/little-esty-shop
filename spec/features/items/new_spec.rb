@@ -29,7 +29,7 @@ RSpec.describe "The new item page" do
           click_button 'Add Item'
         end
 
-        expect(current_path).to eq merchant_items(@merchant)
+        expect(current_path).to eq merchant_items_path(@merchant)
 
         within '#item-list' do
           expect(page).to have_content(new_name)
