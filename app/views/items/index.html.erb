@@ -1,0 +1,21 @@
+<div id='item-list'>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr id="item-<%=item.id%>">
+          <td><%=item.name%></td>
+          <td><%=item.unit_price%></td>
+        </tr>
+        <tr id='item-<%=item.id%>-description'>
+          <td colspan='2'><%= item.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
