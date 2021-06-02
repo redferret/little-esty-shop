@@ -28,6 +28,7 @@ RSpec.describe "dashboard" do
   it "displays a ready to ship section" do
 
     within('section#ready-to-ship') do
+      save_and_open_page
       expect(page).to have_content("Items Ready to Ship")
     end
   end
@@ -36,10 +37,12 @@ RSpec.describe "dashboard" do
     @item_1 = FactoryBot.create(:item, merchant_id: @merchant_1.id)
     @item_2 = FactoryBot.create(:item, merchant_id: @merchant_1.id)
     @item_3 = FactoryBot.create(:item, merchant_id: @merchant_1.id)
-    @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, item_status: :pending)
-    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, item_status: :package)
-    @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, item_status: :shipped)
-    @item_4 = FactoryBot.create(:item)
+    @customer_1 = FactoryBot.create(:customer)
+    @invoice_1 = FactoryBot.create(:invoice, customer: @customer_1)
+    @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1, status: :pending)
+    # @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, item_status: :package)
+    # @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, item_status: :shipped)
+    # @item_4 = FactoryBot.create(:item)
 
     within('section#ready-to-ship') do
       expect(page).to have_content(@item_1.name)
@@ -67,5 +70,3 @@ end
 # Next to each Item name I see the date that the invoice was created
 # And I see the date formatted like "Monday, July 18, 2019"
 # And I see that the list is ordered from oldest to newest
-
-end
