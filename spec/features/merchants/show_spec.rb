@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'index' do
+RSpec.describe 'show' do
   before(:each) do
     @merchant = FactoryBot.create(:merchant)
     @item_1 = FactoryBot.create(:item, merchant: @merchant)
@@ -15,11 +15,14 @@ RSpec.describe 'index' do
 
 
     visit "/merchants/#{@merchant.id}/invoices"
+    click_link "#{@invoice_1.id}"
   end
 
-  it 'shows all the invoices with at least one of the merchants items' do
-    expect(page).to have_content(@invoice_1.id)
-    expect(page).to have_content(@invoice_2.id)
-    expect(page).to_not have_content(@invoice_3.id)
+  it 'goes to the invoices show page with the invoices information' do
+    expect(page).to have_content("#{@invoice_1.id}")
+    expect(page).to have_content("#{@invoice_1.status}")
+    expect(page).to have_content("#{@invoice_1.created_at}")
+    expect(page).to have_content("#{@customer.first_name}")
+    expect(page).to have_content("#{@customer.last_name}")
   end
 end
