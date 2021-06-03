@@ -6,13 +6,16 @@ RSpec.describe "dashboard" do
     @item_1 = FactoryBot.create(:item, merchant: @merchant_1)
     @item_2 = FactoryBot.create(:item, merchant: @merchant_1)
     @item_3 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_4 = FactoryBot.create(:item, merchant: @merchant_1)
     @customer = FactoryBot.create(:customer)
     @invoice_1 = FactoryBot.create(:invoice, customer: @customer)
     @invoice_2 = FactoryBot.create(:invoice, customer: @customer)
     @invoice_3 = FactoryBot.create(:invoice, customer: @customer)
+    @invoice_4 = FactoryBot.create(:invoice, customer: @customer)
     @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 'pending')
     @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 'packaged')
     @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 'shipped')
+    @invoice_item_4 = FactoryBot.create(:invoice_item, item: @item_4, invoice: @invoice_4, status: 'packaged')
 
     visit merchant_dashboard_index_path(@merchant_1)
   end
@@ -35,14 +38,14 @@ RSpec.describe "dashboard" do
 
   it "displays a ready to ship section" do
 
-    within('section#ready-to-ship') do
+    within('#ready-to-ship') do
       expect(page).to have_content("Items Ready to Ship")
     end
   end
 
   it "it lists names of ordered items not yet shipped" do
 
-    within('section#ready-to-ship') do
+    within('#ready-to-ship') do
       expect(page).to have_content(@invoice_item_1.item.name)
       expect(page).to have_content(@invoice_item_2.item.name)
       expect(page).to_not have_content(@invoice_item_3.item.name)
@@ -50,8 +53,7 @@ RSpec.describe "dashboard" do
   end
 
   it "it lists each invoice id as a link next to item name" do
-
-    within('section#ready-to-ship') do
+    within('#ready-to-ship') do
       expect(page).to have_link("Invoice ID #{@item_1.invoice_id}")
       expect(page).to have_content("Invoice ID #{@item_2.invoice_id}")
       expect(page).to_not have_content("Invoice ID #{@item_3.invoice_id}")
@@ -59,11 +61,8 @@ RSpec.describe "dashboard" do
   end
 
   it "it displays the invoice creation date ordered from oldest to newest" do
-
-    within('section#ready-to-ship') do
-      expect(page).to have_content(@invoice_1.invoice_creation_date)
-      # expect(SOME_INVOICE.invoice_creation_date).to appear_before(SOME_OTHER_INVOICE.invoice_creation_date)
-      expect(page).to have_content(@item_2.name)
+    within('#ready-to-ship') do
+      expect(@invoice_2.invoice_creation_date).to appear_before(@invoice_4.invoice_creation_date)
     end
   end
 end
