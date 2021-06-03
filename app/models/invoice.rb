@@ -5,4 +5,8 @@ class Invoice < ApplicationRecord
   belongs_to :customer
 
   enum status: {in_progress: 'in progress', cancelled: 'cancelled', completed: 'completed'}
+
+  def invoice_creation_date
+    created_at.strftime("%A, %B %d, %Y")
+  end
 end
