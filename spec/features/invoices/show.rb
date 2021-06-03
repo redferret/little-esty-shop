@@ -36,7 +36,7 @@ RSpec.describe 'show' do
 
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@invoice_item.quantity)
-    expect(page).to have_content(@invoice_item.price)
+    expect(page).to have_content(@invoice_item.unit_price)
     expect(page).to have_content(@invoice_1.status)
   end
 
