@@ -14,7 +14,7 @@ RSpec.describe "dashboard" do
     @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 'packaged')
     @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 'shipped')
 
-    visit dashboard_merchant_path(@merchant_1)
+    visit merchant_dashboard_index_path(@merchant_1)
   end
 
   it 'has merchant name' do
@@ -22,14 +22,12 @@ RSpec.describe "dashboard" do
   end
 
   it 'has link to merchant items index' do
-
     expect(page).to have_link('Merchant Items Index')
     click_on('Merchant Items Index')
     expect(current_path).to eq(merchant_items_path(@merchant_1))
   end
 
-    it 'has link to merchant items index' do
-
+  it 'has link to merchant invoices index' do
     expect(page).to have_link('Merchant Invoices Index')
     click_on('Merchant Invoices Index')
     expect(current_path).to eq(merchant_invoices_path(@merchant_1))
