@@ -5,11 +5,26 @@
 <%= link_to 'Merchant Items Index', merchant_items_path(@merchant) %>
 <%= link_to 'Merchant Invoices Index', merchant_invoices_path(@merchant) %>
 
-<section id="ready-to-ship">
+<div class='container' id="ready-to-ship">
   <h2>Items Ready to Ship</h2>
-  <% InvoiceItem.invoice_items_ready_to_ship(@merchant).each do |invoice_item| %>
-    <%= invoice_item.item.name %>
-    <%= link_to "Invoice ID #{invoice_item.invoice_id}", merchant_invoice_path(@merchant, invoice_item.invoice) %>
-    <%= invoice_item.invoice.invoice_creation_date %><br>
-  <% end %>
-</section>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Invoice</th>
+        <th>Creation Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @invoices.each do |invoice| %>
+      <% invoice.invoice_items.each do |invoice_item| %>
+        <tr id='ready-to-ship-invoice-<%=invoice.id%>'>
+          <td><%= invoice_item.item.name %></td>
+          <td><%= link_to "Invoice ID #{invoice.id}", merchant_invoice_path(@merchant, invoice) %></td>
+          <td><%= invoice.invoice_creation_date %><br></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>
