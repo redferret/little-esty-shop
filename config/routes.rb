@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get :dashboard
     end
     resources :items, only: [:index, :show, :create, :update]
-    resources :invoices, only: [:index, :show]
+    resources :invoices, only: [:index, :show, :update]
   end
 
 end

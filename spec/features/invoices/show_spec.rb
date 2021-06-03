@@ -15,7 +15,7 @@ RSpec.describe 'show' do
     @item_1 = FactoryBot.create(:item, merchant: @merchant)
     @item_2 = FactoryBot.create(:item, merchant: @merchant)
     @item_3 = FactoryBot.create(:item, merchant: @merchant)
-    @customer = Customer.create!(first_name: "Dean", last_name: "Winchester")
+    @customer = FactoryBot.create(:customer)
     @invoice_1 = Invoice.create!(status: "in_progress", customer: @customer)
     @invoice_item = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1)
 
@@ -37,7 +37,6 @@ RSpec.describe 'show' do
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@invoice_item.quantity)
     expect(page).to have_content(@invoice_item.unit_price)
-    expect(page).to have_content(@invoice_1.status)
   end
 
     # As a merchant
@@ -52,6 +51,8 @@ RSpec.describe 'show' do
     # And I see that my Item's status has now been updated
 
   it 'can update a invoice status' do
-    expect(page).to have_content(@invoice_item.status)
+    expect(page).to have_select("invoice[status]", selected: @invoice_1.status)
+    click_on("Update Item Status")
+    expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice_1))
   end
 end

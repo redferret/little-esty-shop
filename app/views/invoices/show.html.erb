@@ -1,6 +1,7 @@
-<h1><% @invoice.items.each do |item| %></h1>
+
+<% @invoice.items.each do |item| %>
 <h1>Item: <%= item.name %></h1>
-<h1><% end %></h1>
+<% end %>
 
 <br>
 
@@ -9,11 +10,8 @@
 
 <br>
 
-<form action="/action_page.php">
-<label for="#{@invoice_item.status}">Invoice Status:</label><%=  %>
-  <select name="#{@invoice_item.status}" id="status">
-    <option value="in_progress">In Progress</option>
-    <option value="shipped">Shipped</option>
-    <option value="delivered">Delivered</option>
-  </select>
-</form>
+<%= form_with model: @invoice, url: merchant_invoice_path(@merchant, @invoice), method: :patch, id: 'change-status-form', local: true do |form| %>
+  <%= form.label :status %>
+  <%= form.select :status, ['in_progress', 'cancelled', 'completed'] %>
+  <%= form.submit "Update Item Status" %>
+<% end %>
