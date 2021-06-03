@@ -1,4 +1,3 @@
-
 <% @invoice.items.each do |item| %>
 <h1>Item: <%= item.name %></h1>
 <% end %>
@@ -7,6 +6,13 @@
 
 <h2>Quanity: <%= @invoice_item.quantity %></h2>
 <h2>Unit Price: <%= @invoice_item.unit_price %></h2>
+
+<br>
+
+<h2>Invoice ID: <%= @invoice.id %></h2>
+<p>Status: <%= @invoice.status %></p>
+<p>Created At: <%= @invoice.created_at %></p>
+<p>Customer: <%= @customer.first_name  %> <%= @customer.last_name%></p>
 
 <br>
 
