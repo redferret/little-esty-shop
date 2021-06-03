@@ -47,9 +47,9 @@ RSpec.describe "dashboard" do
 
     within('section#ready-to-ship') do
       # require "pry"; binding.pry
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_2.name)
-      expect(page).to_not have_content(@item_3.name)
+      expect(page).to have_content(@invoice_item_1.item.name)
+      expect(page).to have_content(@invoice_item_2.item.name)
+      expect(page).to_not have_content(@invoice_item_3.item.name)
     end
   end
 
