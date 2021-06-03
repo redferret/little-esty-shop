@@ -9,5 +9,7 @@
   <h2>Items Ready to Ship</h2>
   <% InvoiceItem.invoice_items_ready_to_ship(@merchant).each do |invoice_item| %>
     <%= invoice_item.item.name %>
+    <%= link_to "Invoice ID #{invoice_item.invoice_id}", merchant_invoice_path(@merchant, invoice_item.invoice) %>
+    <%= invoice_item.invoice.invoice_creation_date %><br>
   <% end %>
 </section>
