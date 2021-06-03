@@ -17,7 +17,6 @@ RSpec.describe 'show' do
   end
 
   it 'goes to the invoices show page with the invoices information' do
-    require 'pry'; binding.pry
     expect(page).to have_content("#{@invoice_1.id}")
     expect(page).to have_content("#{@invoice_1.status}")
     expect(page).to have_content("#{@invoice_1.created_at}")
