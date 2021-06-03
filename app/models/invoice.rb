@@ -6,8 +6,12 @@ class Invoice < ApplicationRecord
 
   enum status: {in_progress: 'in progress', cancelled: 'cancelled', completed: 'completed'}
 
+  def self.ready_to_ship_invoices_for_merchant(merchant_id)
+    Invoice.joins(:invoice_items, :items).where(items: {merchant_id: merchant_id}, invoice_items: {status: 'packaged'})
+  end
+
   def self.invoices_for_merchant(merchant_id)
-    
+    Invoice.joins(:items).where(items: {merchant_id: merchant_id})
   end
 
   def invoice_creation_date
