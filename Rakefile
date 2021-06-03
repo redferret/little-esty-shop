@@ -18,7 +18,7 @@ namespace :load_csv do
       Customer.create!(row.to_hash)
     end
     finish = Time.now
-    puts "-- Done %0.1f" % [finish - start]
+    puts "-- Done in %0.1f seconds" % [finish - start]
   end
 
   task :invoice_items => :environment do
@@ -30,7 +30,7 @@ namespace :load_csv do
       InvoiceItem.create!(row.to_hash)
     end
     finish = Time.now
-    puts "-- Done %0.1f" % [finish - start]
+    puts "-- Done in %0.1f seconds" % [finish - start]
   end
 
   task :invoices => :environment do
@@ -42,7 +42,7 @@ namespace :load_csv do
       Invoice.create!(row.to_hash)
     end
     finish = Time.now
-    puts "-- Done %0.1f" % [finish - start]
+    puts "-- Done in %0.1f seconds" % [finish - start]
   end
 
   task :items => :environment do
@@ -54,7 +54,7 @@ namespace :load_csv do
       Item.create!(row.to_hash)
     end
     finish = Time.now
-    puts "-- Done %0.1f" % [finish - start]
+    puts "-- Done in %0.1f seconds" % [finish - start]
   end
 
   task :merchants => :environment do
@@ -66,7 +66,7 @@ namespace :load_csv do
       Merchant.create!(row.to_hash)
     end
     finish = Time.now
-    puts "-- Done %0.1f" % [finish - start]
+    puts "-- Done in %0.1f seconds" % [finish - start]
   end
 
   task :transactions => :environment do
@@ -78,7 +78,7 @@ namespace :load_csv do
       Transaction.create!(row.to_hash)
     end
     finish = Time.now
-    puts "-- Done %0.1f" % [finish - start]
+    puts "-- Done in %0.1f seconds" % [finish - start]
   end
 
   task :all => :environment do
