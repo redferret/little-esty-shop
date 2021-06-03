@@ -1,6 +1,7 @@
 class InvoicesController < ApplicationController
   def index
-    @invoices = InvoiceItem.where(item_id: Item.where(merchant_id: 1).pluck(:id))
+    @merchant = Merchant.find(params[:merchant_id])
+    @invoices = InvoiceItem.invoices_for_merchant(params[:merchant_id])
   end
 
   def show
