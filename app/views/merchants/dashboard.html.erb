@@ -7,7 +7,7 @@
 
 <section id="ready-to-ship">
   <h2>Items Ready to Ship</h2>
-  <% @invoice_items.items_ready_to_ship(@merchant).each do |invoice_item| %>
+  <% InvoiceItem.invoice_items_ready_to_ship(@merchant).each do |invoice_item| %>
     <%= invoice_item.item.name %>
   <% end %>
 </section>

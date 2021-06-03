@@ -47,6 +47,8 @@ RSpec.describe "dashboard" do
     # @item_4 = FactoryBot.create(:item)
 
     within('section#ready-to-ship') do
+
+
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_2.name)
 
