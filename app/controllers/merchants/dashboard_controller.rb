@@ -2,7 +2,7 @@ module Merchants
   class DashboardController < ApplicationController
     def index
       @merchant = Merchant.find(params[:merchant_id])
-      @invoice_items = InvoiceItem.all
+      @invoices = Invoice.ready_to_ship_invoices_for_merchant(params[:merchant_id])
     end
   end
 end
