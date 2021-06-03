@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :merchants, only: :index do
+  resources :merchants, only: [:index, :show] do
     member do
       get :dashboard
     end
+    resources :invoices, only: [:index, :show, :update]
     resources :items, only: [:index, :show, :new, :create, :update]
-    resources :invoices, only: [:index, :show]
   end
+
 end
