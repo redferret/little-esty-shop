@@ -10,21 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_162345) do
+ActiveRecord::Schema.define(version: 2021_06_02_001026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_enum :invoice_status, [
-    "in_progress",
-    "cancelled",
-    "completed",
-  ], force: :cascade
-
-  create_enum :item_status, [
+  create_enum :invoice_item_status, [
     "pending",
     "packaged",
     "shipped",
+  ], force: :cascade
+
+  create_enum :invoice_status, [
+    "in progress",
+    "cancelled",
+    "completed",
   ], force: :cascade
 
   create_enum :transaction_result, [
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 2021_06_02_162345) do
   end
 
   create_table "invoice_items", force: :cascade do |t|
-    t.enum "status", default: "pending", null: false, enum_name: "item_status"
-    t.integer "quanity"
+    t.enum "status", default: "pending", null: false, enum_name: "invoice_item_status"
+    t.integer "quantity"
     t.integer "unit_price"
     t.bigint "item_id"
     t.bigint "invoice_id"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_162345) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.enum "status", default: "in_progress", null: false, enum_name: "invoice_status"
+    t.enum "status", default: "in progress", null: false, enum_name: "invoice_status"
     t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(version: 2021_06_02_162345) do
   end
 
   create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
     t.integer "unit_price"
     t.bigint "merchant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
-    t.string "description"
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 2021_06_02_162345) do
     t.bigint "invoice_id"
     t.bigint "credit_card_number"
     t.string "credit_card_expiration_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 
