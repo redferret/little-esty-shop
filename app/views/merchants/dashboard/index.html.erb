@@ -18,9 +18,9 @@
     <tbody>
     <% @invoices.each do |invoice| %>
       <% invoice.invoice_items.each do |invoice_item| %>
-        <tr id='ready-to-ship-invoice-<%=invoice.id%>'>
+        <tr id='invoice-item-<%=invoice_item.id%>'>
           <td><%= invoice_item.item.name %></td>
-          <td><%= link_to "Invoice ID #{invoice.id}", merchant_invoice_path(@merchant, invoice) %></td>
+          <td><%= link_to "Invoice ##{invoice.id}", merchant_invoice_path(@merchant, invoice) %></td>
           <td><%= invoice.invoice_creation_date %><br></td>
         </tr>
       <% end %>

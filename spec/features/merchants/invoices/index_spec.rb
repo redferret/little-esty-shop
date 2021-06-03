@@ -18,7 +18,7 @@ RSpec.describe 'The merchant index page' do
 
   describe 'invoice links,' do
     it 'navigates to the show page for an invoice' do
-      click_link "#{@invoice_1.id}"
+      click_link "Invoice ##{@invoice_1.id}"
       expect(current_path).to eq merchant_invoice_path(@merchant, @invoice_1)
     end
   end

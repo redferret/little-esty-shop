@@ -36,33 +36,35 @@ RSpec.describe "dashboard" do
     expect(current_path).to eq(merchant_invoices_path(@merchant_1))
   end
 
-  it "displays a ready to ship section" do
-
-    within('#ready-to-ship') do
-      expect(page).to have_content("Items Ready to Ship")
+  describe 'the list of ready-to-ship items,' do
+    it "displays a ready to ship section" do
+      within('#ready-to-ship') do
+        expect(page).to have_content("Items Ready to Ship")
+      end
     end
-  end
 
-  it "it lists names of ordered items not yet shipped" do
-
-    within('#ready-to-ship') do
-      expect(page).to have_content(@invoice_item_1.item.name)
-      expect(page).to have_content(@invoice_item_2.item.name)
-      expect(page).to_not have_content(@invoice_item_3.item.name)
+    it "it lists each invoice id as a link to the invoice" do
+      within("#invoice-item-#{@invoice_item_2.id}") do
+        expect(page).to have_link("Invoice ##{@invoice_2.id}")
+      end
+      within("#invoice-item-#{@invoice_item_4.id}") do
+        expect(page).to have_link("Invoice ##{@invoice_4.id}")
+      end
     end
-  end
 
-  it "it lists each invoice id as a link next to item name" do
-    within('#ready-to-ship') do
-      expect(page).to have_link("Invoice ID #{@item_1.invoice_id}")
-      expect(page).to have_content("Invoice ID #{@item_2.invoice_id}")
-      expect(page).to_not have_content("Invoice ID #{@item_3.invoice_id}")
+    it "it lists names of ordered items" do
+      within("#invoice-item-#{@invoice_item_2.id}") do
+        expect(page).to have_content(@item_2.name)
+      end
+      within("#invoice-item-#{@invoice_item_4.id}") do
+        expect(page).to have_content(@item_4.name)
+      end
     end
-  end
 
-  it "it displays the invoice creation date ordered from oldest to newest" do
-    within('#ready-to-ship') do
-      expect(@invoice_2.invoice_creation_date).to appear_before(@invoice_4.invoice_creation_date)
+    it "it displays the invoice creation date ordered from oldest to newest" do
+      within('#ready-to-ship') do
+        expect(find("#invoice-item-#{@invoice_item_2.id}")).to appear_before(find("#invoice-item-#{@invoice_item_4.id}"))
+      end
     end
   end
 end
