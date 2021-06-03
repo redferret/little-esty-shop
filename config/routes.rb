@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :merchants do
     resources :dashboard, only: [:index]
     resources :invoices, only: [:index, :show, :update]

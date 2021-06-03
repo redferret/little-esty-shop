@@ -18,7 +18,7 @@ RSpec.describe "dashboard" do
     expect(current_path).to eq(merchant_items_path(@merchant_1))
   end
 
-    it 'has link to merchant items index' do
+    it 'has link to merchant invoices index' do
 
     expect(page).to have_link('Merchant Invoices Index')
     click_on('Merchant Invoices Index')
