@@ -3,6 +3,16 @@ require 'rails_helper'
 RSpec.describe "dashboard" do
   before(:each) do
     @merchant_1 = FactoryBot.create(:merchant)
+    @item_1 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_2 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_3 = FactoryBot.create(:item, merchant: @merchant_1)
+    @customer = FactoryBot.create(:customer)
+    @invoice_1 = FactoryBot.create(:invoice, customer: @customer)
+    @invoice_2 = FactoryBot.create(:invoice, customer: @customer)
+    @invoice_3 = FactoryBot.create(:invoice, customer: @customer)
+    @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1)
+    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2)
+
 
     visit dashboard_merchant_path(@merchant_1)
   end
@@ -34,21 +44,8 @@ RSpec.describe "dashboard" do
   end
 
   it "it lists names of ordered items not yet shipped" do
-    @item_1 = FactoryBot.create(:item, merchant_id: @merchant_1.id)
-    @item_2 = FactoryBot.create(:item, merchant_id: @merchant_1.id)
-    @item_3 = FactoryBot.create(:item, merchant_id: @merchant_1.id)
-    # @customer_1 = FactoryBot.create(:customer)
-    # @invoice_1 = FactoryBot.create(:invoice, customer: @customer_1)
-    @customer = Customer.create!(first_name: "Dean", last_name: "Winchester")
-    @invoice_1 = Invoice.create!(status: "in_progress", customer: @customer)
-    @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1, status: :pending)
-    # @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, item_status: :package)
-    # @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, item_status: :shipped)
-    # @item_4 = FactoryBot.create(:item)
 
     within('section#ready-to-ship') do
-
-
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_2.name)
 
