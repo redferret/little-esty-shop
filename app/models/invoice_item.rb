@@ -6,6 +6,6 @@ class InvoiceItem < ApplicationRecord
 
 
   def self.invoices_for_merchant(merchant_id)
-    where(item_id: Item.where(merchant_id: merchant_id).pluck(:id))
+    where(item_id: Item.where(merchant_id: merchant_id).pluck(:id)).distinct.pluck(:invoice_id)
   end
 end

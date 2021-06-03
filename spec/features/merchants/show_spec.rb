@@ -8,17 +8,16 @@ RSpec.describe 'show' do
     @item_3 = FactoryBot.create(:item, merchant: @merchant)
     @customer = FactoryBot.create(:customer)
     @invoice_1 = FactoryBot.create(:invoice, customer: @customer)
-    @invoice_2 = FactoryBot.create(:invoice, customer: @customer)
-    @invoice_3 = FactoryBot.create(:invoice, customer: @customer)
-    @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1)
-    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2)
-
+    FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1)
+    FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_1)
+    FactoryBot.create(:invoice_item, item: @item_3, invoice: @invoice_1)
 
     visit "/merchants/#{@merchant.id}/invoices"
     click_link "#{@invoice_1.id}"
   end
 
   it 'goes to the invoices show page with the invoices information' do
+    require 'pry'; binding.pry
     expect(page).to have_content("#{@invoice_1.id}")
     expect(page).to have_content("#{@invoice_1.status}")
     expect(page).to have_content("#{@invoice_1.created_at}")
