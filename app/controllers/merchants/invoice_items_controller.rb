@@ -1,4 +1,2 @@
-module Merchants
-  class InvoiceItemsController < ApplicationController
-  end
+class Merchants::InvoiceItemsController < ApplicationController
 end
