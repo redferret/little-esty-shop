@@ -1,4 +1,23 @@
+<% @invoice.items.each do |item| %>
+<h1>Item: <%= item.name %></h1>
+<% end %>
+
+<br>
+
+<h2>Quanity: <%= @invoice_item.quantity %></h2>
+<h2>Unit Price: <%= @invoice_item.unit_price %></h2>
+
+<br>
+
 <h2>Invoice ID: <%= @invoice.id %></h2>
 <p>Status: <%= @invoice.status %></p>
 <p>Created At: <%= @invoice.created_at %></p>
 <p>Customer: <%= @customer.first_name  %> <%= @customer.last_name%></p>
+
+<br>
+
+<%= form_with model: @invoice, url: merchant_invoice_path(@merchant, @invoice), method: :patch, id: 'change-status-form', local: true do |form| %>
+  <%= form.label :status %>
+  <%= form.select :status, ['in_progress', 'cancelled', 'completed'] %>
+  <%= form.submit "Update Item Status" %>
+<% end %>
