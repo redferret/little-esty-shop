@@ -14,11 +14,11 @@ RSpec.describe 'index' do
     @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2)
 
 
-    visit "/merchants/#{@merchant.id}/invoices"
+    visit merchant_invoices_path(@merchant)
   end
 
   it 'shows all the invoices with at least one of the merchants items' do
-
+    save_and_open_page
     expect(page).to have_content(@invoice_1.id)
     expect(page).to have_content(@invoice_2.id)
     expect(page).to_not have_content(@invoice_3.id)
