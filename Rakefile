@@ -10,63 +10,75 @@ csv_tasks = [:customers, :merchants, :invoices, :items, :invoice_items, :transac
 
 namespace :load_csv do
   task :customers => :environment do
+    start = Time.now
     puts '-- clearing old data on customers'
     Customer.destroy_all
-    puts '-- Loading ... '
+    puts '-- Loading Customers ... '
     CSV.foreach('./db/data/customers.csv', headers: true) do |row|
       Customer.create!(row.to_hash)
     end
-    puts '-- Loaded Customers'
+    finish = Time.now
+    puts "-- Done %0.1f" % [finish - start]
   end
 
   task :invoice_items => :environment do
+    start = Time.now
     puts '-- clearing old data on invoice_items'
     InvoiceItem.destroy_all
-    puts '-- Loading ... '
+    puts '-- Loading Invoice Items ... '
     CSV.foreach('./db/data/invoice_items.csv', headers: true) do |row|
       InvoiceItem.create!(row.to_hash)
     end
-    puts '-- Loaded InvoiceItems'
+    finish = Time.now
+    puts "-- Done %0.1f" % [finish - start]
   end
 
   task :invoices => :environment do
+    start = Time.now
     puts '-- clearing old data on invoices'
     Invoice.destroy_all
-    puts '-- Loading ... '
+    puts '-- Loading Invoices ... '
     CSV.foreach('./db/data/invoices.csv', headers: true) do |row|
       Invoice.create!(row.to_hash)
     end
-    puts '-- Loaded Invoices'
+    finish = Time.now
+    puts "-- Done %0.1f" % [finish - start]
   end
 
   task :items => :environment do
+    start = Time.now
     puts '-- clearing old data on items'
     Item.destroy_all
-    puts '-- Loading ... '
+    puts '-- Loading Items ... '
     CSV.foreach('./db/data/items.csv', headers: true) do |row|
       Item.create!(row.to_hash)
     end
-    puts '-- Loaded Items'
+    finish = Time.now
+    puts "-- Done %0.1f" % [finish - start]
   end
 
   task :merchants => :environment do
+    start = Time.now
     puts '-- clearing old data on merchants'
     Merchant.destroy_all
-    puts '-- Loading ... '
+    puts '-- Loading Merchants ... '
     CSV.foreach('./db/data/merchants.csv', headers: true) do |row|
       Merchant.create!(row.to_hash)
     end
-    puts '-- Loaded Merchants'
+    finish = Time.now
+    puts "-- Done %0.1f" % [finish - start]
   end
 
   task :transactions => :environment do
+    start = Time.now
     puts '-- clearing old data on transactions'
     Transaction.destroy_all
-    puts '-- Loading ... '
+    puts '-- Loading Transactions ... '
     CSV.foreach('./db/data/transactions.csv', headers: true) do |row|
       Transaction.create!(row.to_hash)
     end
-    puts '-- Loaded Transactions'
+    finish = Time.now
+    puts "-- Done %0.1f" % [finish - start]
   end
 
   task :all => :environment do
