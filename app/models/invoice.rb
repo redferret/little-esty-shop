@@ -6,6 +6,10 @@ class Invoice < ApplicationRecord
 
   enum status: {in_progress: 'in progress', cancelled: 'cancelled', completed: 'completed'}
 
+  def self.invoices_for_merchant(merchant_id)
+    
+  end
+
   def invoice_creation_date
     created_at.strftime("%A, %B %d, %Y")
   end

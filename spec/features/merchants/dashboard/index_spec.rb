@@ -36,7 +36,6 @@ RSpec.describe "dashboard" do
   it "displays a ready to ship section" do
 
     within('section#ready-to-ship') do
-      save_and_open_page
       expect(page).to have_content("Items Ready to Ship")
     end
   end
@@ -44,7 +43,6 @@ RSpec.describe "dashboard" do
   it "it lists names of ordered items not yet shipped" do
 
     within('section#ready-to-ship') do
-      # require "pry"; binding.pry
       expect(page).to have_content(@invoice_item_1.item.name)
       expect(page).to have_content(@invoice_item_2.item.name)
       expect(page).to_not have_content(@invoice_item_3.item.name)
