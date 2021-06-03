@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_162345) do
 
   create_table "invoice_items", force: :cascade do |t|
     t.enum "status", default: "pending", null: false, enum_name: "item_status"
-    t.integer "quanity"
+    t.integer "quantity"
     t.integer "unit_price"
     t.bigint "item_id"
     t.bigint "invoice_id"

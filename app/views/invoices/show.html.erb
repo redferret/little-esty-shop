@@ -1,0 +1,12 @@
+<h1><% @invoice.items.each do |item| %></h1>
+<h1>Item: <%= item.name %></h1>
+<h1><% end %></h1>
+
+<br>
+
+<h2>Quanity: <%= @invoice_item.quantity %></h2>
+<h2>Unit Price: <%= @invoice_item.unit_price %></h2>
+
+<br>
+
+<h2>Invoice Status: <%= @invoice_item.status %></h2>

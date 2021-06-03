@@ -4,7 +4,7 @@ class CreateInvoiceItems < ActiveRecord::Migration[5.2]
 
     create_table :invoice_items do |t|
       t.enum :status, enum_name: :item_status, default: 'pending', null: false
-      t.integer :quanity
+      t.integer :quantity
       t.integer :unit_price
       t.references :item, foreign_key: true
       t.references :invoice, foreign_key: true
