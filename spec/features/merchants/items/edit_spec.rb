@@ -22,7 +22,7 @@ RSpec.describe 'The edit page for an item,' do
   end
 
   describe 'the submit button on form,' do
-    it 'navigates back to the item show page with a flash message on the top' do
+    it 'navigates back to the item show page with a flash message on the top saying it was added' do
       new_name = Faker::Commerce.product_name
       within 'form' do
         fill_in 'item[name]', with: new_name
@@ -33,6 +33,19 @@ RSpec.describe 'The edit page for an item,' do
       
       within '#item-table' do
         expect(page).to have_content(new_name)
+      end
+    end
+
+    it 'navigates back to the item show page with a flash message on the top alerting there was an error' do
+      within 'form' do
+        fill_in 'item[name]', with: ''
+        click_button 'Update Item'
+      end
+
+      expect(current_path).to eq edit_merchant_item_path(@merchant, @item)
+      
+      within '#flash-message' do
+        expect(page).to have_content("Item not updated - Error(s), Name can't be blank")
       end
     end
   end

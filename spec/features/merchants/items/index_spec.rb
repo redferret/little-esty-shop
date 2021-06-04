@@ -30,7 +30,7 @@ RSpec.describe 'The index page for an merchants items,' do
           expect(page).to have_link(item.name)
           expect(page).to have_content(item.unit_price)
         end
-        within "#item-#{item.id}-description" do
+        within "#item-#{item.id}" do
           expect(page).to have_content(item.description)
         end
       end
@@ -46,7 +46,7 @@ RSpec.describe 'The index page for an merchants items,' do
           click_link @item_1.name
         end
 
-        expect(current_path).to eq merchant_item_path(@merchant, @item_1)
+        expect(current_path).to eq merchant_item_path(@merchant_1, @item_1)
       end
     end
   end

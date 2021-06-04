@@ -35,6 +35,23 @@ RSpec.describe "The new item page" do
           expect(page).to have_content(new_name)
         end
       end
+
+      it 'redirects back to the merchant items new page when a new item has errors' do
+        new_name = Faker::Commerce.product_name
+
+        within '#new-item-form' do
+          fill_in 'item[name]', with: ''
+          fill_in 'item[unit_price]', with: rand(100..5000)
+          fill_in 'item[description]', with: Faker::Lorem.sentence
+          click_button 'Add Item'
+        end
+
+        expect(current_path).to eq new_merchant_item_path(@merchant)
+
+        within '#flash-message' do
+          expect(page).to have_content("Item not created - Error(s), Name can't be blank")
+        end
+      end
     end
   end
 end
