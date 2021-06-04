@@ -1,8 +1,9 @@
 class Merchants::ItemsController < ApplicationController
-  before_action :set_item, only: %i[show edit update]
+  before_action :set_item_and_merchant, except: %i[ index new ]
 
   def index
-    @items = Merchant.find(params[:merchant_id]).items
+    @merchant = Merchant.find(params[:merchant_id])
+    @items = @merchant.items
   end
 
   def show
@@ -14,10 +15,11 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def create
-    merchant = Merchant.find(params[:merchant_id])
-    
-    if merchant.items.create(item_params)
-      redirect_to merchant_items_path(merchant)
+    if @merchant.items.create(item_params)
+      flash[:success] = 'New Item Created'
+      redirect_to merchant_items_path(@merchant)
+    else
+      flash[:alert] = "Item not created - #{@merchant.items.errors}"
     end
   end
 
@@ -25,11 +27,21 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def update
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      flash[:success] = 'Item Updated'
+      redirect_to merchant_items_path(@merchant)
+    else
+      flash[:alert] = "Item not updated - #{@item.errors}"
+      render merchant_item_path(@merchant, @item)
+    end
   end
 
   private
 
-  def set_item
+  def set_item_and_merchant
+    @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
   end
 
