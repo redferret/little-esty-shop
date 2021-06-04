@@ -28,7 +28,7 @@ RSpec.describe 'The index page for an merchants items,' do
       @merchant_1.items.each do |item|
         within "#item-#{item.id}" do
           expect(page).to have_link(item.name)
-          expect(page).to have_content(item.unit_price)
+          expect(page).to have_content("$#{item.convert_unit_price_to_dollars}")
         end
         within "#item-#{item.id}" do
           expect(page).to have_content(item.description)

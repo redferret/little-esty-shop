@@ -15,7 +15,7 @@ RSpec.describe 'The edit page for an item,' do
       within 'form' do
         expect(page).to have_field('item[name]', with: @item.name)
         expect(page).to have_field('item[description]', with: @item.description)
-        expect(page).to have_field('item[unit_price]', with: @item.unit_price)
+        expect(page).to have_field('item[unit_price]', with: "$#{@item.convert_unit_price_to_dollars}")
         expect(page).to have_button('Update Item')
       end
     end
