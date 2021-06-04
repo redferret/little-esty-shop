@@ -2,4 +2,18 @@
     Admin Dashboard<span style="float:right;"><%= render partial: 'partials/admin_links' %>&emsp;</span>
 </h3>
 
-<h3>Admin Merchants</h3>
+<div class="row">
+  <div class="column">
+    <h3>Enabled Merchants</h3>
+
+    <h3>Disabled Merchants</h3>
+  </div>
+
+  <div class="column">
+    <h3>&emsp;<%= "Top Merchants" %></h3>
+    <% @merchants.each_with_index do |merchant, index| %>
+      <h4><%= index+1 %>&emsp; <%= merchant.name %></h4>
+    <% end %>
+  </div>
+
+</div>
