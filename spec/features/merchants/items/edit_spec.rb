@@ -12,7 +12,7 @@ RSpec.describe 'The edit page for an item,' do
 
   describe 'form,' do
     it 'has a form with pre populated attributes of the item' do
-      within '#edit-item-form' do
+      within 'form' do
         expect(page).to have_field('item[name]', with: @item.name)
         expect(page).to have_field('item[description]', with: @item.description)
         expect(page).to have_field('item[unit_price]', with: @item.unit_price)
@@ -24,7 +24,7 @@ RSpec.describe 'The edit page for an item,' do
   describe 'the submit button on form,' do
     it 'navigates back to the item show page with a flash message on the top' do
       new_name = Faker::Commerce.product_name
-      within '#edit-item-form' do
+      within 'form' do
         fill_in 'item[name]', with: new_name
         click_button 'Update Item'
       end
