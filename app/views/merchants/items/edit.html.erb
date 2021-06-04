@@ -16,5 +16,5 @@
   </div>
 
   <%= form.submit 'Update Item', class:'btn btn-primary' %>
+  <%= link_to 'Cancel', merchant_item_path(@merchant, @item), class:'btn btn-secondary'%>
 <% end %>
-<%= link_to 'Cancel', merchant_item_path(@merchant, @item), class:'btn btn-secondary'%>
