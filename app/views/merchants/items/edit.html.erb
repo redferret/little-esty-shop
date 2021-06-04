@@ -7,7 +7,7 @@
 
   <div class='form-group'>
     <%= form.label :unit_price %>
-    <%= form.text_field :unit_price, class:'form-control' %>
+    <%= form.text_field :unit_price, value: "$#{@item.convert_unit_price_to_dollars}", class:'form-control' %>
   </div>
 
   <div class='form-group'>

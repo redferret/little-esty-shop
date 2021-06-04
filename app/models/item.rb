@@ -7,6 +7,14 @@ class Item < ApplicationRecord
   validates :unit_price, presence: true
   validates :description, presence: true
 
+  def self.convert_unit_price_to_cents(unit_price)
+    unit_price * 100.0
+  end
+
+  def convert_unit_price_to_dollars
+    unit_price / 100.0
+  end
+
   def has_errors?
     !errors.empty?
   end

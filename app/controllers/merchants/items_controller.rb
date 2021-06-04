@@ -1,5 +1,6 @@
 class Merchants::ItemsController < ApplicationController
   before_action :set_item_and_merchant, only: %i[ show edit update ]
+  before_action :convert_unit_price, only: %i[ create update]
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
@@ -42,6 +43,13 @@ class Merchants::ItemsController < ApplicationController
   end
 
   private
+
+  def convert_unit_price
+    given_unit_price = params[:item][:unit_price] if params[:item][:unit_price].present?
+    if given_unit_price
+      params[:item][:unit_price] = Item.convert_unit_price_to_cents(given_unit_price[1..-1].to_f)
+    end
+  end
 
   def set_item_and_merchant
     @merchant = Merchant.find(params[:merchant_id])

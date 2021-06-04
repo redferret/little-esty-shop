@@ -16,7 +16,7 @@
       <% @items.each do |item| %>
         <tr id="item-<%=item.id%>">
           <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
-          <td><%= item.unit_price %></td>
+          <td>$<%= item.format_unit_price %></td>
           <td><%= item.description %></td>
         </tr>
       <% end %>
