@@ -1,4 +1,4 @@
-<h2>Edit Item <%= @item.name %></h2>
+<h2>Edit <%= @item.name %></h2>
 <%= form_with model: @item, url: merchant_item_path(@merchant, @item), method: :patch, local: true do |form| %>
   <div class='form-group'>
     <%= form.label :name %>

@@ -1,6 +1,7 @@
 <h2>Items</h2>
 <div id='page-links'>
   <%= link_to 'Add New Item', new_merchant_item_path(@merchant), class:'btn btn-primary btn-sm'%>
+  <%= link_to 'Back to Dashboard', merchant_dashboard_index_path(@merchant), class:'btn btn-secondary btn-sm'%>
 </div>
 <br/>
 <div id='item-list'>
@@ -16,7 +17,7 @@
       <% @items.each do |item| %>
         <tr id="item-<%=item.id%>">
           <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
-          <td>$<%= item.format_unit_price %></td>
+          <td>$<%= item.convert_unit_price_to_dollars %></td>
           <td><%= item.description %></td>
         </tr>
       <% end %>
