@@ -1,24 +1,26 @@
+<h2>Items</h2>
+<div id='page-links'>
+  <%= link_to 'Add New Item', new_merchant_item_path(@merchant), class:'btn btn-primary btn-sm'%>
+  <%= link_to 'Back to Dashboard', merchant_dashboard_index_path(@merchant), class:'btn btn-secondary btn-sm'%>
+</div>
+<br/>
 <div id='item-list'>
-  <table class='table'>
+  <table class='table table-hover'>
     <thead>
       <tr>
         <th>Item Name</th>
         <th>Price</th>
+        <th>Item Description</th>
       </tr>
-    </thead>>
+    </thead>
     <tbody>
       <% @items.each do |item| %>
         <tr id="item-<%=item.id%>">
-          <td><%=item.name%></td>
-          <td><%=item.unit_price%></td>
-        </tr>
-        <tr id='item-<%=item.id%>-description'>
-          <td colspan='2'><%= item.description %></td>
+          <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
+          <td>$<%= item.convert_unit_price_to_dollars %></td>
+          <td><%= item.description %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-</div>
-<div id='page-links'>
-  <%= link_to 'Add New Item', new_merchant_item_path, class:'btn btn-primary btn-sm'%>
 </div>
