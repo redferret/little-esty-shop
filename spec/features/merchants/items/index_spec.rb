@@ -7,7 +7,6 @@ RSpec.describe 'The index page for an merchants items,' do
     item_1 = FactoryBot.create(:item, merchant: @merchant_1)
     item_2 = FactoryBot.create(:item, merchant: @merchant_1)
     item_3 = FactoryBot.create(:item, merchant: @merchant_1)
-
   end
 
   before :each do
@@ -17,6 +16,22 @@ RSpec.describe 'The index page for an merchants items,' do
   it 'has a link to create a new item' do
     within '#page-links' do
       expect(page).to have_link('Add New Item')
+    end
+  end
+
+  # As a merchant
+  # When I visit my items index page
+  # Next to each item name I see a button to disable or enable that item.
+  # When I click this button
+  # Then I am redirected back to the items index
+  # And I see that the items status has changed
+
+  it 'has a disable or enable button' do
+    @merchant_1.items.each do |item|
+      within "#item-#{item.id}" do
+        expect(page).to have_button('Enable')
+        expect(page).to have_button('Disable')
+      end
     end
   end
 
@@ -40,5 +55,4 @@ RSpec.describe 'The index page for an merchants items,' do
       end
     end
   end
-
 end
