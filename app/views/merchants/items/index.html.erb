@@ -1,10 +1,10 @@
 <h2>Items</h2>
 <div id='page-links'>
-  <%= link_to 'Add New Item', new_merchant_item_path, class:'btn btn-primary btn-sm'%>
+  <%= link_to 'Add New Item', new_merchant_item_path(@merchant), class:'btn btn-primary btn-sm'%>
 </div>
 <br/>
 <div id='item-list'>
-  <table class='table'>
+  <table class='table table-hover'>
     <thead>
       <tr>
         <th>Item Name</th>
@@ -15,7 +15,7 @@
     <tbody>
       <% @items.each do |item| %>
         <tr id="item-<%=item.id%>">
-          <td><%= item.name %></td>
+          <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
           <td><%= item.unit_price %></td>
           <td><%= item.description %></td>
         </tr>
