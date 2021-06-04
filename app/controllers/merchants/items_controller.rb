@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class Merchants::ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit update]
 
   def index

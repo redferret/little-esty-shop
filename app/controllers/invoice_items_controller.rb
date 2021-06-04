@@ -1,2 +1,0 @@
-class InvoiceItemsController < ApplicationController
-end
