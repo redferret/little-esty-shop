@@ -15,31 +15,3 @@
   </tbody>
 </table>
 <%= link_to 'Update', edit_merchant_item_path(@merchant, @item), class:'btn btn-primary'%>
-<br/>
-<br/>
-
-<%# Using grid system %>
-<div class='container' id='item-details'>
-  <div class='row'>
-    <div class='col-sm col-cust col-center'>
-      Item Name
-    </div>
-    <div class='col-sm col-cust col-center'>
-      Unit Price
-    </div>
-    <div class='col-sm col-cust col-center'>
-      Description
-    </div>
-  </div>
-  <div class='row'>
-    <div class='col-sm col-cust'>
-      <%= @item.name%>
-    </div>
-    <div class='col-sm col-cust'>
-      <%= @item.unit_price%>
-    </div>
-    <div class='col-sm col-cust'>
-      <%= @item.description%>
-    </div>
-  </div>
-</div>
