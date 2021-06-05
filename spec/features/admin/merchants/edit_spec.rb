@@ -9,8 +9,8 @@ RSpec.describe 'Admin Merchants Edit Page' do
     it "loads prepopulated form with merchant's info" do
       visit edit_admin_merchant_path(@merchant_1)
 
-      within('#form') do
-        fill_in('name', with: 'Fanzy Petz')
+      within('form') do
+        fill_in('merchant[name]', with: 'Fanzy Petz')
         click_on 'Submit'
       end
       expect(current_path).to eq(admin_merchant_path(@merchant_1))
@@ -19,8 +19,8 @@ RSpec.describe 'Admin Merchants Edit Page' do
     it 'shows flash message if fields are saved blank' do
       visit edit_admin_merchant_path(@merchant_1)
 
-      within('#form') do
-        fill_in('name', with: 'Fanzy Petz')
+      within('form') do
+        fill_in('merchant[name]', with: 'Fanzy Petz')
         click_on 'Submit'
       end
 
