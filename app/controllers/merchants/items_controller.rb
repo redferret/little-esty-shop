@@ -4,7 +4,7 @@ class Merchants::ItemsController < ApplicationController
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
-    @items = @merchant.items
+    set_items
   end
 
   def show
@@ -33,7 +33,13 @@ class Merchants::ItemsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
-    if @item.update(item_params)
+
+    if params[:status].present?
+      @item.status = params[:status]
+      @item.save
+      set_items
+      redirect_to merchant_items_path(@merchant)
+    elsif @item.update(item_params)
       flash[:success] = 'Item Updated'
       redirect_to merchant_item_path(@merchant, @item)
     else
@@ -44,8 +50,14 @@ class Merchants::ItemsController < ApplicationController
 
   private
 
+  def set_items
+    @enabled_items = @merchant.enabled_items
+    @disabled_items = @merchant.disabled_items
+    @top_items = []
+  end
+
   def convert_unit_price
-    given_unit_price = params[:item][:unit_price] if params[:item][:unit_price].present?
+    given_unit_price = params[:item][:unit_price] if params[:item].present? && params[:item][:unit_price].present?
     if given_unit_price
       params[:item][:unit_price] = Item.convert_unit_price_to_cents(given_unit_price[1..-1].to_f)
     end

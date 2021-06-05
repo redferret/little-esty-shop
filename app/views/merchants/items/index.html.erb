@@ -4,23 +4,24 @@
   <%= link_to 'Add New Item', new_merchant_item_path(@merchant), class:'btn btn-primary btn-sm'%>
 </div>
 <br/>
-<div id='item-list'>
-  <table class='table table-hover'>
-    <thead>
-      <tr>
-        <th>Item Name</th>
-        <th>Price</th>
-        <th>Item Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @items.each do |item| %>
-        <tr id="item-<%=item.id%>">
-          <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
-          <td>$<%= item.convert_unit_price_to_dollars %></td>
-          <td><%= item.description %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class='container' id='item-list'>
+  <div class='row'>
+    <div class='col text-center'>
+      <h3>My Items</h3>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col'>
+      <h4><span>Enabled Items</span></h4>
+
+      <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @enabled_items, merchant: @merchant, enable_disable: 'disable' } %>
+
+      <h4>Disabled Items</h4>
+
+      <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @disabled_items, merchant: @merchant, enable_disable: 'enable' }%>
+    </div>
+    <div class='col text-center'>
+      <h4>Top Items</h4>
+    </div>
+  </div>
 </div>
