@@ -6,6 +6,8 @@ RSpec.describe 'The merchants index page,' do
     @merchant_2 = FactoryBot.create(:merchant)
     @merchant_3 = FactoryBot.create(:merchant, enabled: false, name: 'Disabled 1')
     @merchant_4 = FactoryBot.create(:merchant, enabled: false, name: 'Disabled 2')
+    @merchant_5 = FactoryBot.create(:merchant, enabled: false, name: 'Disabled 3')
+    @merchant_6 = FactoryBot.create(:merchant)
   end
 
   before :each do
@@ -14,11 +16,39 @@ RSpec.describe 'The merchants index page,' do
 
   describe 'enable/diable link,' do
     describe 'enable merchant,' do
-      it 'enables merchant and redirects to the admin merchants index'
+      it 'enables merchant and redirects to the admin merchants index' do
+        within '#disabled-merchants' do
+          within "#merchant-#{@merchant_5.id}" do
+            click_link 'Enable'
+          end
+        end
+        
+        expect(current_path).to eq admin_merchants_path
+        
+        within '#enabled-merchants' do
+          within "#merchant-#{@merchant_5.id}" do
+            expect(page).to have_link(@merchant_5.name)
+          end
+        end
+      end
     end
-
+    
     describe 'disable merchant,' do
-      it 'enables merchant and redirects to the admin merchants index'
+      it 'disables merchant and redirects to the admin merchants index' do
+        within '#enabled-merchants' do
+          within "#merchant-#{@merchant_6.id}" do
+            click_link 'Disable'
+          end
+        end
+        
+        expect(current_path).to eq admin_merchants_path
+        
+        within '#disabled-merchants' do
+          within "#merchant-#{@merchant_6.id}" do
+            expect(page).to have_link(@merchant_6.name)
+          end
+        end
+      end
     end
   end
   
