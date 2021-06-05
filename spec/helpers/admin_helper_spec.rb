@@ -8,8 +8,13 @@ RSpec.describe AdminHelper do
     it 'returns a link to enable a merchant' do
       expect(enable_disable_merchant_link('enable', @merchant)).to have_link('Enable', href: admin_merchant_path(@merchant, enabled: true))
     end
+
     it 'returns a link to disable a merchant' do
       expect(enable_disable_merchant_link('disable', @merchant)).to have_link('Disable', href: admin_merchant_path(@merchant, enabled: false))
+    end
+
+    it 'returns no link if invalid string' do
+      expect{enable_disable_merchant_link('foo bar', @merchant)}.to raise_error('Invalid type given')
     end
   end
 end
