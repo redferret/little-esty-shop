@@ -25,7 +25,9 @@ RSpec.describe 'Admin Merchants Edit Page' do
       end
 
       expect(current_path).to eq(admin_merchant_path(@merchant_1))
-      expect(page).to have_content('Merchant Successfully Updated')
+      within '#flash-message' do
+        expect(page).to have_content('Merchant Successfully Updated')
+      end
     end
   end
 end
