@@ -84,12 +84,12 @@ RSpec.describe 'The merchants index page,' do
         
         within "#merchant-#{@merchant_3.id}" do
           expect(page).to have_link(@merchant_3.name)
-          expect(page).to have_link('Disable')
+          expect(page).to have_link('Enable')
         end
         
         within "#merchant-#{@merchant_4.id}" do
           expect(page).to have_link(@merchant_4.name)
-          expect(page).to have_link('Disable')
+          expect(page).to have_link('Enable')
         end
       end
     end
