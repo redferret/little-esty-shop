@@ -12,6 +12,17 @@ RSpec.describe 'The merchants index page,' do
     visit admin_merchants_path
   end
 
+  describe 'enable/diable link,' do
+    describe 'enable merchant,' do
+      it 'enables merchant and redirects to the admin merchants index'
+    end
+
+    describe 'disable merchant,' do
+      it 'enables merchant and redirects to the admin merchants index'
+    end
+  end
+  
+
   describe 'enabled merchants list,' do
     it 'shows all the merchants that are enabled' do
       within '#enabled-merchants' do
