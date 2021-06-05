@@ -1,0 +1,9 @@
+<h3>Edit Admin Merchant Info</h3>
+<section id='form'>
+  <%= form_with model: @merhcant, url: admin_merchant_path(@merchant), method: :get, id: 'edit-merchant-form', local: true do |f| %>
+    <%= f.label :name, value: @merchant.name%>
+    <%= f.text_field :name %>
+
+    <%= f.submit 'Submit' %>
+  <% end %>
+</section>
