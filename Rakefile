@@ -15,7 +15,9 @@ namespace :load_csv do
     Customer.destroy_all
     puts '-- Loading Customers ... '
     CSV.foreach('./db/data/customers.csv', headers: true) do |row|
-      Customer.create!(row.to_hash)
+      row_hash = row.to_hash
+      row_hash.delete('id')
+      Customer.create!(row_hash)
     end
     finish = Time.now
     puts "-- Done in %0.1f seconds" % [finish - start]
@@ -27,7 +29,9 @@ namespace :load_csv do
     InvoiceItem.destroy_all
     puts '-- Loading Invoice Items ... '
     CSV.foreach('./db/data/invoice_items.csv', headers: true) do |row|
-      InvoiceItem.create!(row.to_hash)
+      row_hash = row.to_hash
+      row_hash.delete('id')
+      InvoiceItem.create!(row_hash)
     end
     finish = Time.now
     puts "-- Done in %0.1f seconds" % [finish - start]
@@ -39,7 +43,9 @@ namespace :load_csv do
     Invoice.destroy_all
     puts '-- Loading Invoices ... '
     CSV.foreach('./db/data/invoices.csv', headers: true) do |row|
-      Invoice.create!(row.to_hash)
+      row_hash = row.to_hash
+      row_hash.delete('id')
+      Invoice.create!(row_hash)
     end
     finish = Time.now
     puts "-- Done in %0.1f seconds" % [finish - start]
@@ -51,7 +57,9 @@ namespace :load_csv do
     Item.destroy_all
     puts '-- Loading Items ... '
     CSV.foreach('./db/data/items.csv', headers: true) do |row|
-      Item.create!(row.to_hash)
+      row_hash = row.to_hash
+      row_hash.delete('id')
+      Item.create!(row_hash)
     end
     finish = Time.now
     puts "-- Done in %0.1f seconds" % [finish - start]
@@ -63,7 +71,9 @@ namespace :load_csv do
     Merchant.destroy_all
     puts '-- Loading Merchants ... '
     CSV.foreach('./db/data/merchants.csv', headers: true) do |row|
-      Merchant.create!(row.to_hash)
+      row_hash = row.to_hash
+      row_hash.delete('id')
+      Merchant.create!(row_hash)
     end
     finish = Time.now
     puts "-- Done in %0.1f seconds" % [finish - start]
@@ -75,7 +85,9 @@ namespace :load_csv do
     Transaction.destroy_all
     puts '-- Loading Transactions ... '
     CSV.foreach('./db/data/transactions.csv', headers: true) do |row|
-      Transaction.create!(row.to_hash)
+      row_hash = row.to_hash
+      row_hash.delete('id')
+      Transaction.create!(row_hash)
     end
     finish = Time.now
     puts "-- Done in %0.1f seconds" % [finish - start]
