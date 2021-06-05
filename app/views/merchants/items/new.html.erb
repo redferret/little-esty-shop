@@ -1,18 +1,20 @@
-<%= form_with model: @item, url: merchant_items_path(@merchant), method: :post, id: 'new-item-form' do |form| %>
-  <div class='form-control'>
+<h2>Add New Item Form</h2>
+<br/>
+<%= form_with model: @item, url: merchant_items_path(@merchant), method: :post, id: 'new-item-form', local: true do |form| %>
+  <div class='form-group'>
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class:'form-control' %>
   </div>
 
-  <div class='form-control'>
+  <div class='form-group'>
     <%= form.label :unit_price %>
-    <%= form.text_field :unit_price %>
+    <%= form.text_field :unit_price, class:'form-control' %>
   </div>
 
-  <div class='form-control'>
+  <div class='form-group'>
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class:'form-control' %>
   </div>
 
-  <%= form.submit 'Add Item' %>
+  <%= form.submit 'Add Item', class:'btn btn-primary' %>
 <% end %>

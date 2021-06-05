@@ -23,7 +23,7 @@ RSpec.describe 'The show page for an item,' do
     it 'shows each items name, unit price, and quantity' do
       within '#item-table' do
         expect(page).to have_content(@item.name)
-        expect(page).to have_content(@item.unit_price)
+        expect(page).to have_content("$#{@item.convert_unit_price_to_dollars}")
         expect(page).to have_content(@item.description)
       end
     end
