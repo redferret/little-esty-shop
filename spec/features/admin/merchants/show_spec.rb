@@ -13,7 +13,7 @@ RSpec.describe "As an admin" do
       expect(page).to have_link('Update Merchant')
 
       click_link('Update Merchant')
-save_and_open_page
+
       expect(current_path).to eq(edit_admin_merchant_path(@merchant_1))
     end
   end
