@@ -5,9 +5,9 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def update
-    if params[:status].present?
+    if params[:enabled].present?
       merchant = Merchant.find(params[:id])
-      merchant.status = params[:status]
+      merchant.enabled = params[:enabled]
       merchant.save
       redirect_to admin_merchants_path
     end
