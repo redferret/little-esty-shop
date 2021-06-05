@@ -1,7 +1,7 @@
-<h2>Items</h2>
+<%= render partial: 'partials/merchants/navbar', locals: {merchant: @merchant}%>
+
 <div id='page-links'>
   <%= link_to 'Add New Item', new_merchant_item_path(@merchant), class:'btn btn-primary btn-sm'%>
-  <%= link_to 'Back to Dashboard', merchant_dashboard_index_path(@merchant), class:'btn btn-secondary btn-sm'%>
 </div>
 <br/>
 <div id='item-list'>

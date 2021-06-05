@@ -1,0 +1,16 @@
+<nav class='navbar navbar-expand-lg navbar-light bg-light'>
+
+  <h2 class='navbar-brand'><%= merchant.name %></h2>
+
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <h4><%= link_to 'Dashboard', merchant_dashboard_index_path(merchant), class:'badge badge-light' %></h4>
+    </li>
+    <li class="nav-item">
+      <h4><%= link_to 'Merchant Items Index', merchant_items_path(merchant), class:'badge badge-light' %></h4>
+    </li>
+    <li class="nav-item">
+      <h4><%= link_to 'Merchant Invoices Index', merchant_invoices_path(merchant), class:'badge badge-light' %></h4>
+    </li>
+  </ul>
+</nav>

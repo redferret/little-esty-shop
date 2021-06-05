@@ -1,3 +1,5 @@
+<%= render partial: 'partials/merchants/navbar', locals: {merchant: @merchant}%>
+
 <% @invoices.each do |invoice| %>
   <%= link_to "Invoice ##{invoice.id}", merchant_invoice_path(@merchant, invoice) %>
   <br/>
