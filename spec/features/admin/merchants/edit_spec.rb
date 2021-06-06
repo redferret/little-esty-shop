@@ -31,9 +31,3 @@ RSpec.describe 'Admin Merchants Edit Page' do
     end
   end
 end
-
-
-  # And I see a form filled in with the existing merchant attribute information
-  # When I update the information in the form and I click ‘submit’
-  # Then I am redirected back to the merchant's admin show page where I see the updated information
-  # And I see a flash message stating that the information has been successfully updated.
