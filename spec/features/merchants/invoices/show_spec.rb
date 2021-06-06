@@ -42,9 +42,6 @@ RSpec.describe 'show' do
     end
   end
   
-
-
-
   describe 'total revenue' do
     it 'shows the total revenue for the invoice' do
       visit merchant_invoice_path(@merchant, @invoice_2)
