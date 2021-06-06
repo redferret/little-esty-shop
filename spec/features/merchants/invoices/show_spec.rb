@@ -14,8 +14,8 @@ RSpec.describe 'show' do
 
     @invoice_2 = Invoice.create!(status: "in_progress", customer: @customer)
     @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1)
-    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, unit_price: 1200)
-    @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, invoice: @invoice_2, unit_price: 1500)
+    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, unit_price: 1200, quantity: 1)
+    @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, invoice: @invoice_2, unit_price: 500, quantity: 3)
   end
 
   describe 'invoice item show,' do
@@ -41,7 +41,7 @@ RSpec.describe 'show' do
       end
     end
   end
-  
+
   describe 'total revenue' do
     it 'shows the total revenue for the invoice' do
       visit merchant_invoice_path(@merchant, @invoice_2)

@@ -9,7 +9,6 @@ class Merchants::InvoicesController < ApplicationController
     @customer = Customer.find(@invoice.customer_id)
     @merchant = Merchant.find(params[:merchant_id])
     @invoice_items = @invoice.invoice_items
-    
     @total_revenue = InvoiceItem.total_revenue(@invoice_items)
   end
 
