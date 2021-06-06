@@ -13,11 +13,10 @@ RSpec.describe 'show' do
     @invoice_1 = Invoice.create!(status: "in_progress", customer: @customer)
     @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1)
 
-    FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1)
     FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_1)
     FactoryBot.create(:invoice_item, item: @item_3, invoice: @invoice_1)
   end
-  
+
   before :each do
     visit merchant_invoice_path(@merchant, @invoice_1)
   end
@@ -41,6 +40,19 @@ RSpec.describe 'show' do
       expect(page).to have_select("invoice[status]", selected: @invoice_1.status)
       click_on("Update Item Status")
       expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice_1))
+    end
+  end
+
+  describe 'total revenue' do
+    it 'shows the total revenue for the invoice' do
+      merchant = FactoryBot.create(:merchant)
+      item = FactoryBot.create(:item, merchant: merchant, unit_price: 500)
+      customer = FactoryBot.create(:customer)
+      invoice = Invoice.create!(status: "in_progress", customer: customer)
+      invoice_item = FactoryBot.create(:invoice_item, item: item, invoice: invoice, quantity: 3)
+      visit merchant_invoice_path(merchant, invoice)
+      save_and_open_page
+      expect(page).to have_content('$15.00')
     end
   end
 end
