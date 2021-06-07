@@ -1,1 +1,9 @@
 <%= render partial: 'partials/admin/admin_navbar' %>
+
+<%= form_with model: @merchant, url: admin_merchant_path(@merchant), method: :patch, id: 'edit-merchant-form', local: true do |f| %>
+  <div class='form-group'>
+    <%= f.label :name, value: @merchant.name%>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Submit' %>
+<% end %>
