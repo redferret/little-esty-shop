@@ -4,7 +4,7 @@ RSpec.describe 'The index page for an merchants items,' do
 
   before :all do
     @merchant_1 = FactoryBot.create(:merchant)
-    item_1 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_1 = FactoryBot.create(:item, merchant: @merchant_1)
     item_2 = FactoryBot.create(:item, merchant: @merchant_1)
     item_3 = FactoryBot.create(:item, merchant: @merchant_1)
 
@@ -27,16 +27,26 @@ RSpec.describe 'The index page for an merchants items,' do
 
       @merchant_1.items.each do |item|
         within "#item-#{item.id}" do
-          expect(page).to have_content(item.name)
-          expect(page).to have_content(item.unit_price)
+          expect(page).to have_link(item.name)
+          expect(page).to have_content("$#{item.convert_unit_price_to_dollars}")
         end
-        within "#item-#{item.id}-description" do
+        within "#item-#{item.id}" do
           expect(page).to have_content(item.description)
         end
       end
 
       within '#item-list' do
         expect(page).to_not have_content(item_4.name)
+      end
+    end
+
+    describe 'link to an item show page,' do
+      it 'navigates to the show page for that item' do
+        within "#item-#{@item_1.id}" do
+          click_link @item_1.name
+        end
+
+        expect(current_path).to eq merchant_item_path(@merchant_1, @item_1)
       end
     end
   end

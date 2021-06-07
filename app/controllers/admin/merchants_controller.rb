@@ -17,15 +17,15 @@ class Admin::MerchantsController < ApplicationController
         redirect_to admin_merchant_path(@merchant)
     end
   end
-
+  
   def show
     @merchant = Merchant.find(params[:id])
   end
-
+  
   def edit
     @merchant = Merchant.find(params[:id])
   end
-
+  
   private
 
   def set_merchants
@@ -33,7 +33,7 @@ class Admin::MerchantsController < ApplicationController
     @disabled_merchants = Merchant.disabled_merchants
     @top_merchants = Merchant.top_merchants
   end
-
+  
   def merchant_params
      params.require(:merchant).permit(:name)
   end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'The admin merchants index page,' do
+RSpec.describe 'The merchants index page,' do
+
   before :all do
     @merchant_1 = FactoryBot.create(:merchant)
     @merchant_2 = FactoryBot.create(:merchant)
@@ -22,9 +23,9 @@ RSpec.describe 'The admin merchants index page,' do
             click_link 'Enable'
           end
         end
-
+        
         expect(current_path).to eq admin_merchants_path
-
+        
         within '#enabled-merchants' do
           within "#merchant-#{@merchant_5.id}" do
             expect(page).to have_link(@merchant_5.name)
@@ -51,7 +52,6 @@ RSpec.describe 'The admin merchants index page,' do
       end
     end
   end
-
 
   describe 'enabled merchants list,' do
     it 'shows all the merchants that are enabled' do
