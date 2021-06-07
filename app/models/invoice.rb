@@ -14,13 +14,6 @@ class Invoice < ApplicationRecord
     Invoice.joins(:items).where(items: {merchant_id: merchant_id})
   end
 
-  def self.total_revenue_from(invoice_items)
-    
-    binding.pry
-    
-    
-  end
-
   def invoice_creation_date
     created_at.strftime("%A, %B %d, %Y")
   end
