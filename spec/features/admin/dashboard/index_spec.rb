@@ -8,12 +8,12 @@ RSpec.describe 'admin dashboard page', type: :feature do
     expect(current_path).to eq("/admin/dashboard")
   end
 
-  it 'has link to admin merchants items index' do
-    visit '/admin/dashboard'
-    expect(page).to have_link('Merchants')
-    click_on('Merchants')
-    expect(current_path).to eq("/admin/merchants")
-  end
+  # it 'has link to admin merchants items index' do
+  #   visit '/admin/dashboard'
+  #   expect(page).to have_link('Merchants')
+  #   click_on('Merchants')
+  #   expect(current_path).to eq("/admin/merchants")
+  # end
 
   it 'has link to admin invoices index' do
     visit '/admin/dashboard'
@@ -58,6 +58,47 @@ RSpec.describe 'admin dashboard page', type: :feature do
         expect(page).to have_content(@invoice_2.id)
         expect(page).to have_content(@invoice_4.id)
         expect(page).to_not have_content(@invoice_3.id)
+      end
+    end
+
+    it 'orders the invoices from oldest to newest
+    and displays invoice created at date like "Monday, July 18,2019"' do
+      visit '/admin/dashboard'
+
+      within("#incomplete_invoices") do
+        expect(page).to have_content("Incomplete Invoices")
+        expect("#{@invoice_4.id}").to appear_before("#{@invoice_2.id}")
+        expect("#{@invoice_2.id}").to appear_before("#{@invoice_1.id}")
+
+        within("#incomplete_invoice-#{@invoice_4.id}") do
+          expect(page).to have_content("#{@invoice_4.id}")
+          expect(page).to have_content("#{@invoice_4.created_at.strftime("%A, %B %d, %Y")}")
+        end
+
+        within("#incomplete_invoice-#{@invoice_2.id}") do
+          expect(page).to have_content("#{@invoice_2.id}")
+          expect(page).to have_content("#{@invoice_2.created_at.strftime("%A, %B %d, %Y")}")
+        end
+      end
+    end
+
+    it 'each incomplete invoice is a link to that invoices show page' do
+      visit '/admin/dashboard'
+
+      within("#incomplete_invoice-#{@invoice_4.id}") do
+        expect(page).to have_content("#{@invoice_4.created_at.strftime("%A, %B %d, %Y")}")
+        expect(page).to have_link("#{@invoice_4.id}")
+        click_link("#{@invoice_4.id}")
+        expect(current_path).to eq("/admin/invoices/#{@invoice_4.id}")
+      end
+
+      visit '/admin/dashboard'
+
+      within("#incomplete_invoice-#{@invoice_2.id}") do
+        expect(page).to have_content("#{@invoice_2.created_at.strftime("%A, %B %d, %Y")}")
+        expect(page).to have_link("#{@invoice_2.id}")
+        click_link("#{@invoice_2.id}")
+        expect(current_path).to eq("/admin/invoices/#{@invoice_2.id}")
       end
     end
   end
