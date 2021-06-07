@@ -80,7 +80,13 @@ end
 #     end
 #   end
 
-# As a merchant
+#31
+# As a merchant,
+# When I visit my merchant items index page
+# Then I see two sections, one for "Enabled Items" and one for "Disabled Items"
+# And I see that each Item is listed in the appropriate section
+#32
+#As a merchant
 # When I visit my items index page
 # Next to each item name I see a button to disable or enable that item.
 # When I click this button
