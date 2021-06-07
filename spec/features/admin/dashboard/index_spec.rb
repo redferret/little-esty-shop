@@ -1,57 +1,60 @@
 require 'rails_helper'
 
 RSpec.describe 'admin dashboard page', type: :feature do
+
+  before :each do
+    @customer_1 = FactoryBot.create(:customer)
+    @customer_2 = FactoryBot.create(:customer)
+    @invoice_1 = FactoryBot.create(:invoice, customer: @customer_1)
+    @invoice_2 = FactoryBot.create(:invoice, customer: @customer_1)
+    @invoice_3 = FactoryBot.create(:invoice, customer: @customer_2)
+    @invoice_4 = FactoryBot.create(:invoice, customer: @customer_2)
+  
+    @merchant_1 = FactoryBot.create(:merchant)
+    @item_1 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_2 = FactoryBot.create(:item, merchant: @merchant_1)
+  
+    @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 'pending')
+    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_2, status: 'pending')
+    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 'shipped')
+    @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_3, status: 'shipped')
+    @invoice_item_4 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_4, status: 'packaged')
+
+    visit admin_dashboard_index_path
+  end
+
+  it 'has link to admin merchants items index' do
+    within '#navbarNav' do
+      expect(page).to have_link('Merchants', href: admin_merchants_path)
+      click_on('Merchants')
+    end
+    expect(current_path).to eq("/admin/merchants")
+  end
+
   it 'has link to admin dashboard' do
-    visit '/admin/dashboard'
-    expect(page).to have_link('Dashboard')
-    click_on('Dashboard')
+    within '#navbarNav' do
+      expect(page).to have_link('Dashboard', href: admin_dashboard_index_path)
+      click_on('Dashboard')
+    end
     expect(current_path).to eq("/admin/dashboard")
   end
 
-  # it 'has link to admin merchants items index' do
-  #   visit '/admin/dashboard'
-  #   expect(page).to have_link('Merchants')
-  #   click_on('Merchants')
-  #   expect(current_path).to eq("/admin/merchants")
-  # end
-
   it 'has link to admin invoices index' do
-    visit '/admin/dashboard'
-    expect(page).to have_link('Invoices')
-    click_on('Invoices')
+    within '#navbarNav' do
+      expect(page).to have_link('Invoices', href: admin_invoices_path)
+      click_on('Invoices')
+    end
     expect(current_path).to eq("/admin/invoices")
   end
 
   it 'has a header indicating admin dashboard, column titles' do
-    visit '/admin/dashboard'
     expect(page).to have_content("Admin Dashboard")
     expect(page).to have_content("Incomplete Invoices")
     expect(page).to have_content("Top Customers")
   end
 
   describe 'it has an incomplete invoices section' do
-    before :each do
-      @customer_1 = FactoryBot.create(:customer)
-      @customer_2 = FactoryBot.create(:customer)
-      @invoice_1 = FactoryBot.create(:invoice, customer: @customer_1)
-      @invoice_2 = FactoryBot.create(:invoice, customer: @customer_1)
-      @invoice_3 = FactoryBot.create(:invoice, customer: @customer_2)
-      @invoice_4 = FactoryBot.create(:invoice, customer: @customer_2)
-
-      @merchant_1 = FactoryBot.create(:merchant)
-      @item_1 = FactoryBot.create(:item, merchant: @merchant_1)
-      @item_2 = FactoryBot.create(:item, merchant: @merchant_1)
-
-      @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 'pending')
-      @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_2, status: 'pending')
-      @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 'shipped')
-      @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_3, status: 'shipped')
-      @invoice_item_4 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_4, status: 'packaged')
-    end
-
     it 'lists all incomplete invoices' do
-      visit '/admin/dashboard'
-
       within("#incomplete_invoices") do
         expect(page).to have_content("Incomplete Invoices")
         expect(page).to have_content(@invoice_1.id)
@@ -63,12 +66,15 @@ RSpec.describe 'admin dashboard page', type: :feature do
 
     it 'orders the invoices from oldest to newest
     and displays invoice created at date like "Monday, July 18,2019"' do
-      visit '/admin/dashboard'
-
       within("#incomplete_invoices") do
         expect(page).to have_content("Incomplete Invoices")
-        expect("#{@invoice_4.id}").to appear_before("#{@invoice_2.id}")
-        expect("#{@invoice_2.id}").to appear_before("#{@invoice_1.id}")
+
+        invoice_4_div = find("#incomplete_invoice-#{@invoice_4.id}")
+        invoice_2_div = find("#incomplete_invoice-#{@invoice_2.id}")
+        invoice_1_div = find("#incomplete_invoice-#{@invoice_1.id}")
+        
+        expect(invoice_4_div).to appear_before(invoice_2_div)
+        expect(invoice_2_div).to appear_before(invoice_1_div)
 
         within("#incomplete_invoice-#{@invoice_4.id}") do
           expect(page).to have_content("#{@invoice_4.id}")
@@ -83,8 +89,6 @@ RSpec.describe 'admin dashboard page', type: :feature do
     end
 
     it 'each incomplete invoice is a link to that invoices show page' do
-      visit '/admin/dashboard'
-
       within("#incomplete_invoice-#{@invoice_4.id}") do
         expect(page).to have_content("#{@invoice_4.created_at.strftime("%A, %B %d, %Y")}")
         expect(page).to have_link("#{@invoice_4.id}")
@@ -92,7 +96,7 @@ RSpec.describe 'admin dashboard page', type: :feature do
         expect(current_path).to eq("/admin/invoices/#{@invoice_4.id}")
       end
 
-      visit '/admin/dashboard'
+      visit admin_dashboard_index_path
 
       within("#incomplete_invoice-#{@invoice_2.id}") do
         expect(page).to have_content("#{@invoice_2.created_at.strftime("%A, %B %d, %Y")}")
