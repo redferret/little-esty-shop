@@ -65,8 +65,8 @@ RSpec.describe 'The index page for an merchants items,' do
   end
 end
 
-#ALICIA :) I was going to try to do a test like below but as you know i struggle with the studid with blocks
-# * in Item model - I kept getting mixed up with the enable and disable method,as far as whether status should start out as true or false
+#ALICIA :) I was going to try to do a test like below but as you know i struggle with the studid within blocks
+# * an unrealted note: in Item model - I kept getting mixed up with the enable and disable method,as far as whether status should start out as true or false
 
 # it 'shows that enabled item can have status changed to disabled by clicking button' do
 #     within(SOMETHING) do
