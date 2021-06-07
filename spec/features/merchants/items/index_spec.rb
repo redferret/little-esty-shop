@@ -64,3 +64,25 @@ RSpec.describe 'The index page for an merchants items,' do
     end
   end
 end
+
+#ALICIA :) I was going to try to do a test like below but as you know i struggle with the studid with blocks
+# * in Item model - I kept getting mixed up with the enable and disable method,as far as whether status should start out as true or false
+
+# it 'shows that enabled item can have status changed to disabled by clicking button' do
+#     within(SOMETHING) do
+#       expect(page).to have_button('Disable')
+#
+#       click_button 'Disable'
+#
+#       expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+#
+#       expect(page).to have_button('Enable')
+#     end
+#   end
+
+# As a merchant
+# When I visit my items index page
+# Next to each item name I see a button to disable or enable that item.
+# When I click this button
+# Then I am redirected back to the items index
+# And I see that the items status has changed
