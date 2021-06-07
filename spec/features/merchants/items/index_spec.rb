@@ -5,8 +5,8 @@ RSpec.describe 'The index page for an merchants items,' do
   before :all do
     @merchant_1 = FactoryBot.create(:merchant)
     @item_1 = FactoryBot.create(:item, merchant: @merchant_1)
-    item_2 = FactoryBot.create(:item, merchant: @merchant_1)
-    item_3 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_2 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_3 = FactoryBot.create(:item, merchant: @merchant_1)
 
   end
 
@@ -49,6 +49,18 @@ RSpec.describe 'The index page for an merchants items,' do
         expect(current_path).to eq merchant_item_path(@merchant_1, @item_1)
       end
     end
-  end
 
+    describe 'enalbed/disabled sections,' do
+      it 'has sections for enabled and disabled items' do
+        within '#enabled-items' do
+          expect(page).to have_content('Enabled Items')
+        end
+
+        within '#disabled-items' do
+          save_and_open_page
+          expect(page).to have_content('Disabled Items')
+        end
+      end
+    end
+  end
 end
