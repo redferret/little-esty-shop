@@ -1,0 +1,6 @@
+<%= form_with model: @merchant, url:path, method: method do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.submit button_text %>
+<% end %>
