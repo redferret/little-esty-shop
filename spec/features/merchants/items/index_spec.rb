@@ -26,12 +26,14 @@ RSpec.describe 'The index page for an merchants items,' do
       item_4 = FactoryBot.create(:item, merchant: merchant_2, name: 'Impossible Name To Be Random')
 
       @merchant_1.items.each do |item|
-        within "#item-#{item.id}" do
-          expect(page).to have_link(item.name)
-          expect(page).to have_content("$#{item.convert_unit_price_to_dollars}")
-        end
-        within "#item-#{item.id}" do
-          expect(page).to have_content(item.description)
+        within "#item-list" do
+          within "#item-#{item.id}" do
+            expect(page).to have_link(item.name)
+            expect(page).to have_content("$#{item.convert_unit_price_to_dollars}")
+          end
+          within "#item-#{item.id}" do
+            expect(page).to have_content(item.description)
+          end
         end
       end
 
@@ -42,10 +44,11 @@ RSpec.describe 'The index page for an merchants items,' do
 
     describe 'link to an item show page,' do
       it 'navigates to the show page for that item' do
-        within "#item-#{@item_1.id}" do
-          click_link @item_1.name
+        within '#item-list' do
+          within "#item-#{@item_1.id}" do
+            click_link @item_1.name
+          end
         end
-
         expect(current_path).to eq merchant_item_path(@merchant_1, @item_1)
       end
     end
@@ -66,16 +69,16 @@ RSpec.describe 'The index page for an merchants items,' do
       it 'shows that enabled item can have status changed to disabled by clicking button' do
         within '#enabled-items' do
           within "#item-#{@item_1.id}" do
-            expect(page).to have_button('Disable')
-            click_button 'Disable'
+            expect(page).to have_link('Disable')
+            click_link 'Disable'
             expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
           end
         end
 
         within '#disabled-items' do
           within "#item-#{@item_1.id}" do
-            expect(page).to have_button('Enable')
-            click_button 'Enable'
+            expect(page).to have_link('Enable')
+            click_link 'Enable'
             expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
           end
         end
@@ -83,6 +86,3 @@ RSpec.describe 'The index page for an merchants items,' do
     end
   end
 end
-
-#ALICIA :) I was going to try to do a test like below but as you know i struggle with the studid within blocks
-# * an unrealted note: in Item model - I kept getting mixed up with the enable and disable method,as far as whether status should start out as true or false
