@@ -67,4 +67,19 @@ RSpec.describe "dashboard" do
       end
     end
   end
+
+  describe 'disabled merchants list,' do
+    it 'displays the names of the top 5 customers' do
+      within '#top-customers' do
+        expect(page).to have_content()
+      end
+    end
+  end
 end
+
+# As a merchant,
+# When I visit my merchant dashboard
+# Then I see the names of the top 5 customers
+# who have conducted the largest number of successful transactions with my merchant
+# And next to each customer name I see the number of successful transactions they have
+# conducted with my merchant
