@@ -14,8 +14,11 @@
   </div>
 
   <div class="column">
-    <h2>&emsp;<%= "Top Customers" %></h2>
-
+    <div id="top-customers">
+    <h2>&emsp;<%= "Top 5 Customers" %></h2>
+    <% @customers.top_five_customers.each do |customer| %>
+      <p id="customer"-<%= customer.id %>"><%=customer.first_name %> <%= customer.last_name %>, <%= customer.transaction.success_count %> successful purchases</p>
+    <% end %>
+    </div>
   </div>
-
 </div>
