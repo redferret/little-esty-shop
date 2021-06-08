@@ -70,6 +70,16 @@ RSpec.describe "dashboard" do
 
   describe 'disabled merchants list,' do
     it 'displays the names of the top 5 customers' do
+    transaction_1 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
+    transaction_2 = FactoryBot.create(:transaction, result: "failed", invoice_id: @invoice_2.id)
+    transaction_3 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_3.id)
+    transaction_4 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_4.id)
+    transaction_5 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
+    transaction_6 = FactoryBot.create(:transaction, result: "failed", invoice_id: @invoice_2.id)
+    transaction_7 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_3.id)
+    transaction_8 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
+
+
       within '#top-customers' do
         expect(page).to have_content()
       end
@@ -81,5 +91,4 @@ end
 # When I visit my merchant dashboard
 # Then I see the names of the top 5 customers
 # who have conducted the largest number of successful transactions with my merchant
-# And next to each customer name I see the number of successful transactions they have
-# conducted with my merchant
+# And next to each customer name I see the num:transaction,
