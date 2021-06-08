@@ -5,8 +5,8 @@ RSpec.describe 'The index page for an merchants items,' do
   before :all do
     @merchant_1 = FactoryBot.create(:merchant)
     @item_1 = FactoryBot.create(:item, merchant: @merchant_1)
-    item_2 = FactoryBot.create(:item, merchant: @merchant_1)
-    item_3 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_2 = FactoryBot.create(:item, merchant: @merchant_1)
+    @item_3 = FactoryBot.create(:item, merchant: @merchant_1)
 
   end
 
@@ -26,12 +26,14 @@ RSpec.describe 'The index page for an merchants items,' do
       item_4 = FactoryBot.create(:item, merchant: merchant_2, name: 'Impossible Name To Be Random')
 
       @merchant_1.items.each do |item|
-        within "#item-#{item.id}" do
-          expect(page).to have_link(item.name)
-          expect(page).to have_content("$#{item.convert_unit_price_to_dollars}")
-        end
-        within "#item-#{item.id}" do
-          expect(page).to have_content(item.description)
+        within "#item-list" do
+          within "#item-#{item.id}" do
+            expect(page).to have_link(item.name)
+            expect(page).to have_content("$#{item.convert_unit_price_to_dollars}")
+          end
+          within "#item-#{item.id}" do
+            expect(page).to have_content(item.description)
+          end
         end
       end
 
@@ -42,13 +44,15 @@ RSpec.describe 'The index page for an merchants items,' do
 
     describe 'link to an item show page,' do
       it 'navigates to the show page for that item' do
-        within "#item-#{@item_1.id}" do
-          click_link @item_1.name
+        within '#item-list' do
+          within "#item-#{@item_1.id}" do
+            click_link @item_1.name
+          end
         end
-
         expect(current_path).to eq merchant_item_path(@merchant_1, @item_1)
       end
     end
+
 
     describe 'top 5 items' do
       it 'shows the top 5 items that a merchant sells' do
@@ -86,6 +90,38 @@ RSpec.describe 'The index page for an merchants items,' do
           expect(page).to have_content(item_6.name)
           expect(page).to_not have_content(item_2.name)
           expect(page).to_not have_content(item_7.name)
+        end 
+      end 
+    end 
+
+    describe 'enalbed/disabled sections,' do
+      it 'has sections for enabled and disabled items' do
+        within '#enabled-items' do
+          expect(page).to have_content('Enabled Items')
+        end
+
+        within '#disabled-items' do
+          expect(page).to have_content('Disabled Items')
+        end
+      end
+    end
+
+    describe 'enalbed/disabled buttons,' do
+      it 'shows that enabled item can have status changed to disabled by clicking button' do
+        within '#enabled-items' do
+          within "#item-#{@item_1.id}" do
+            expect(page).to have_link('Disable')
+            click_link 'Disable'
+            expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+          end
+        end
+
+        within '#disabled-items' do
+          within "#item-#{@item_1.id}" do
+            expect(page).to have_link('Enable')
+            click_link 'Enable'
+            expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+          end
         end
       end
     end

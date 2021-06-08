@@ -36,3 +36,24 @@
     </tr>
   <% end %>
 </div>
+
+<div id='enabled-items'>
+<h3>Enabled Items</h3>
+<% @items.enable.each do |item| %>
+<table class="items" id="item-<%= item.id %>">
+  <%= link_to item.name, merchant_item_path(@merchant, item) %>
+  <%= link_to 'Disable', merchant_item_path(@merchant, item, status: false), method: :patch %>
+  </table>
+<% end %>
+</div>
+
+<div id='disabled-items'>
+<h3>Disabled Items</h3>
+<% @items.disable.each do |item| %>
+<table class="items" id="item-<%= item.id %>">
+  <%= link_to item.name, merchant_item_path(@merchant, item) %>
+  <%= link_to 'Enable', merchant_item_path(@merchant, item, status: true), method: :patch %>
+  </table>
+<% end %>
+</div>
+

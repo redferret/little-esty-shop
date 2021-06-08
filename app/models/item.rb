@@ -25,7 +25,16 @@ class Item < ApplicationRecord
     end
   end
 
+
   def self.most_popular_items(merchant_id)
     joins(:invoice_items).where(merchant_id: merchant_id).order(Arel.sql('invoice_items.unit_price * invoice_items.quantity DESC')).limit(5)
+  end 
+
+  def self.enable
+    where(status: true)
+  end
+
+  def self.disable
+    where(status: false)
   end
 end
