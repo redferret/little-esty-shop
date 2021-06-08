@@ -31,8 +31,9 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def create
-    merchant = Merchant.new(name: params[:merchant][:name], enabled: false)
+    merchant = Merchant.new(merchant_params)
     if merchant.save
+      merchant.update(enabled: false)
       flash[:notice] = 'New merchant has been created!'
       redirect_to admin_merchants_path
     end
