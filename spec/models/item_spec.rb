@@ -68,7 +68,7 @@ RSpec.describe Item, type: :model do
       invoice_item_7 = FactoryBot.create(:invoice_item, item: item_7, invoice: invoice_2, unit_price: 2000, quantity: 20)
 
       invoice_items = merchant.invoice_items
-      expect(Item.most_popular_items(merchant.id)).to eq([item_6, item_5, item_1, item_3, item_4])
+      expect(Item.top_5_items(merchant.id)).to eq([item_6, item_5, item_1, item_3, item_4])
     end
   end
 end

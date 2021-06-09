@@ -55,7 +55,7 @@ class Merchants::ItemsController < ApplicationController
   def set_items
     @enabled_items = @merchant.enabled_items
     @disabled_items = @merchant.disabled_items
-    @top_items = []
+    @top_5_items = Item.top_5_items(@merchant.id)
   end
 
   def convert_unit_price
