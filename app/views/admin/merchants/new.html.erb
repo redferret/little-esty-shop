@@ -1,6 +1,7 @@
+<%= render: partial 'partials/admin/admin_navbar' %>
 <h3>Create Merchant</h3>
-<section id='form'>
+<div id='form'>
   <%= render partial: 'partials/admin/form', locals: { path: admin_merchants_path,
                                                        method: :post,
                                                        button_text: 'Submit' } %>
-</section>
+</div>
