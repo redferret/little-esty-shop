@@ -33,11 +33,14 @@ module GithubAPI
       private
 
       def client
-        # create a private/protected variable called client with @_, @ scopes to the instance and _ is just to
-        # distinguish the variable as protected. ||= is equivalent to a = a || b, this is testing for falsy 
-        # values. If a is falsy (nil) then b is assigned to a. Otherwise a just receives itself and a new
-        # Faraday endpoint is not created.
-        @_client ||= Faraday.new(API_ENDPOINT) do |client|
+        # Using @_, @ scopes to the instance and _ is just to
+        # distinguish the variable as protected. ||= is equivalent to X = X || Y, this is testing for falsy 
+        # values. If X is falsy (nil) then Y is assigned to X. Otherwise X just receives itself. 
+        # 
+        # In this case @_faraday_connection will either be an instance of a Faraday::Connection or a new
+        # Faraday::Connection is created, this keeps from recopening a connection each time a call is made from 
+        # this client. This does not help with the Api Request Quota counter though.
+        @_faraday_connection ||= Faraday.new(API_ENDPOINT) do |client|
           client.request :url_encoded
           client.adapter Faraday.default_adapter
           client.headers['Authorization'] = "token #{oauth_token}" if oauth_token.present?
