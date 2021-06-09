@@ -14,10 +14,10 @@ module GithubAPI
         @oauth_token = oauth_token
       end
 
-      def project_repos_for(username)
+      def project_repos_for(username, repo_name)
         request(
           http_method: :get,
-          endpoint: "users/#{username}/repos"
+          endpoint: "users/#{username}/#{repo_name}"
         )
       end
 
