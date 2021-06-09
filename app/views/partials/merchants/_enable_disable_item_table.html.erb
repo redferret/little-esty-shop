@@ -9,7 +9,7 @@
     <% items.each do |item| %>
       <tr id="item-<%=item.id%>">
         <td><%= link_to item.name, merchant_item_path(merchant, item) %></td>
-        <td><%= enable_disable_link(enable_disable, merchant, item) %></td>
+        <td><%= enable_disable_link(enable, merchant, item) %></td>
       </tr>
     <% end %>
   </tbody>

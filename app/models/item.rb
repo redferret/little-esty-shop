@@ -25,11 +25,11 @@ class Item < ApplicationRecord
     end
   end
 
-  def self.enable
+  def self.enabled
     where(status: true)
   end
 
-  def self.disable
+  def self.disabled
     where(status: false)
   end
 end
