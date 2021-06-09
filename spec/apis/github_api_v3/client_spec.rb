@@ -12,13 +12,12 @@ RSpec.describe GithubAPI::V3::Client do
       GithubAPI::V3::Client.new
     end
 
-    describe '#project_repos_for' do
+    describe '#project_repo_for' do
       it 'returns the repos for the given user' do
         @expected_repo_hash = [{'name' => 'repo_name_1'}]
 
         github_client = client_mock
-
-        user_repo = github_client.project_repos_for('redferret', 'repo_name_1')
+        user_repo = github_client.project_repo_for('redferret', 'repo_name_1')
 
         expect(user_repo).to be_an Array
         expect(user_repo).to eq @expected_repo_hash
