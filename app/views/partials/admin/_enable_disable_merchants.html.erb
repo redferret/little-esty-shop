@@ -9,7 +9,7 @@
     <% merchants.each do |merchant| %>
       <tr id="merchant-<%=merchant.id%>">
         <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
-        <td><%= enable_disable_merchant_link(enable_disable, merchant) %></td>
+        <td><%= enable_disable_merchant_link(enable, merchant) %></td>
       </tr>
     <% end %>
   </tbody>
