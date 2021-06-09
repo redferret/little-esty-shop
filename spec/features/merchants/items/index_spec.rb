@@ -29,10 +29,7 @@ RSpec.describe 'The index page for an merchants items,' do
         within "#item-list" do
           within "#item-#{item.id}" do
             expect(page).to have_link(item.name)
-            expect(page).to have_content("$#{item.convert_unit_price_to_dollars}")
-          end
-          within "#item-#{item.id}" do
-            expect(page).to have_content(item.description)
+            expect(page).to have_link('Disable')
           end
         end
       end

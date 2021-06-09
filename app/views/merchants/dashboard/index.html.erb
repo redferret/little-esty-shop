@@ -1,30 +1,31 @@
-<h1><%= @merchant.name %></h1>
-
-<br>
-
-<%= link_to 'Merchant Items Index', merchant_items_path(@merchant) %>
-<%= link_to 'Merchant Invoices Index', merchant_invoices_path(@merchant) %>
-
-<div class='container' id="ready-to-ship">
-  <h2>Items Ready to Ship</h2>
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>Item Name</th>
-        <th>Invoice</th>
-        <th>Creation Date</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @invoices.each do |invoice| %>
-      <% invoice.invoice_items.each do |invoice_item| %>
-        <tr id='invoice-item-<%=invoice_item.id%>'>
-          <td><%= invoice_item.item.name %></td>
-          <td><%= link_to "Invoice ##{invoice.id}", merchant_invoice_path(@merchant, invoice) %></td>
-          <td><%= invoice.invoice_creation_date %><br></td>
-        </tr>
-      <% end %>
-    <% end %>
-    </tbody>
-  </table>
+<%= render partial: 'partials/merchants/navbar', locals: {merchant: @merchant}%>
+<div class='container'>
+  <div class='row' id="ready-to-ship">
+    <div class='col'>
+      <h3>Items Ready to Ship</h3>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th>Invoice</th>
+            <th>Creation Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @invoices.each do |invoice| %>
+          <% invoice.invoice_items.each do |invoice_item| %>
+            <tr id='invoice-item-<%=invoice_item.id%>'>
+              <td><%= invoice_item.item.name %></td>
+              <td><%= link_to "Invoice ##{invoice.id}", merchant_invoice_path(@merchant, invoice) %></td>
+              <td><%= invoice.invoice_creation_date %><br></td>
+            </tr>
+          <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class='col'>
+      <h2>Favorite Customers</h2>
+    </div>
+  </div>
 </div>

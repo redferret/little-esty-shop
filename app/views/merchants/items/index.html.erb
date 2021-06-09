@@ -1,59 +1,37 @@
-<h2>Items</h2>
+<%= render partial: 'partials/merchants/navbar', locals: {merchant: @merchant}%>
+
 <div id='page-links'>
   <%= link_to 'Add New Item', new_merchant_item_path(@merchant), class:'btn btn-primary btn-sm'%>
-  <%= link_to 'Back to Dashboard', merchant_dashboard_index_path(@merchant), class:'btn btn-secondary btn-sm'%>
 </div>
 <br/>
-<div id='item-list'>
-  <table class='table table-hover'>
-    <thead>
-      <tr>
-        <th></th>
-        <th>Item Name</th>
-        <th>Price</th>
-        <th>Item Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @items.each do |item| %>
+<div class='container' id='item-list'>
+  <div class='row'>
+    <div class='col text-center'>
+      <h3>My Items</h3>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col'>
+      <div id='enabled-items'>
+        <h4><span>Enabled Items</span></h4>
+        <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @enabled_items, merchant: @merchant, enable: false } %>
+      </div>
+
+      <div id='disabled-items'>
+        <h4>Disabled Items</h4>
+        <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @disabled_items, merchant: @merchant, enable: true }%>
+      </div>
+    </div>
+    <div class='col text-center'>
+      <h4>Top Items</h4>
+    </div>
+    <div id='top-items'>
+      <h2>Top items</h2>
+      <% @top_5_items.each do |item| %>
         <tr id="item-<%=item.id%>">
-          <td><%= link_to 'Enable/Disable' %></td>
-          <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
-          <td>$<%= item.convert_unit_price_to_dollars %></td>
-          <td><%= item.description %></td>
+          <td><%= @top_5_items.find_index(item) + 1 %>. <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></td>
         </tr>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  </div>
 </div>
-<div id='top-items'>
-  <h2>Top items</h2>
-  <% @top_5_items.each do |item| %>
-    <tr id="item-<%=item.id%>">
-      <td><%= @top_5_items.find_index(item) + 1 %>. <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></td>
-      <br>
-      <br>
-    </tr>
-  <% end %>
-</div>
-
-<div id='enabled-items'>
-<h3>Enabled Items</h3>
-<% @items.enable.each do |item| %>
-<table class="items" id="item-<%= item.id %>">
-  <%= link_to item.name, merchant_item_path(@merchant, item) %>
-  <%= link_to 'Disable', merchant_item_path(@merchant, item, status: false), method: :patch %>
-  </table>
-<% end %>
-</div>
-
-<div id='disabled-items'>
-<h3>Disabled Items</h3>
-<% @items.disable.each do |item| %>
-<table class="items" id="item-<%= item.id %>">
-  <%= link_to item.name, merchant_item_path(@merchant, item) %>
-  <%= link_to 'Enable', merchant_item_path(@merchant, item, status: true), method: :patch %>
-  </table>
-<% end %>
-</div>
-

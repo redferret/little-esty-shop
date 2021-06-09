@@ -4,9 +4,7 @@ class Merchants::ItemsController < ApplicationController
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
-    @items = @merchant.items
-    invoice_items = @merchant.invoice_items
-    @top_5_items = Item.most_popular_items(@merchant.id)
+    set_items
   end
 
   def show
@@ -37,9 +35,11 @@ class Merchants::ItemsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
+
     if params[:status].present?
       @item.status = params[:status]
       @item.save
+      set_items
       redirect_to merchant_items_path(@merchant)
     elsif @item.update(item_params)
       flash[:success] = 'Item Updated'
@@ -51,6 +51,12 @@ class Merchants::ItemsController < ApplicationController
   end
 
   private
+
+  def set_items
+    @enabled_items = @merchant.enabled_items
+    @disabled_items = @merchant.disabled_items
+    @top_5_items = Item.top_5_items(@merchant.id)
+  end
 
   def convert_unit_price
     given_unit_price = params[:item][:unit_price] if params[:item].present? && params[:item][:unit_price].present?
