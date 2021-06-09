@@ -113,6 +113,7 @@ RSpec.describe 'The merchants index page,' do
     end
   end
 
+
   describe 'top 5 merchants by revenue' do
     it 'shows the top 5 merchants by revenue' do
       save_and_open_page
@@ -123,6 +124,18 @@ RSpec.describe 'The merchants index page,' do
         expect(page).to have_content(@merchant_5.name)
         expect(page).to have_content(@merchant_6.name)
         expect(page).to_not have_content(@merchant_4.name)
+      end 
+    end 
+  end 
+
+  describe 'create new merchant,' do
+    it 'has link to create new merchant which redirects to form' do
+      within '#page-links' do
+        expect(page).to have_link('Create New Merchant')
+
+        click_on 'Create New Merchant'
+        expect(current_path).to eq(new_admin_merchant_path)
+
       end
     end
   end

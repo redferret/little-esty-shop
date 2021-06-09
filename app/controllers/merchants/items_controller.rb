@@ -5,9 +5,13 @@ class Merchants::ItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @items = @merchant.items
+    invoice_items = @merchant.invoice_items
+    @top_5_items = Item.most_popular_items(@merchant.id)
   end
 
   def show
+    invoice_items = InvoiceItem.where(item_id: params[:id])
+    @total_revenue = InvoiceItem.total_revenue(invoice_items)
   end
 
   def new
