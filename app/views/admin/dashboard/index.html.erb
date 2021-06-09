@@ -1,15 +1,20 @@
-<h3 id="links"; style="text-align:left;">&emsp;
-    Admin Dashboard<span style="float:right;"><%= render partial: 'partials/admin_links' %>&emsp;</span>
-</h3>
+<%= render partial: 'partials/admin/admin_navbar'%>
 
 <div class="row">
   <div class="column">
-    <h3>Incomplete Invoices</h3>
-
+    <section id="incomplete_invoices">
+      <h2>Incomplete Invoices</h2>
+      <% @incomplete_invoices.each do |invoice| %>
+        <div id="incomplete_invoice-<%= invoice.id %>">
+          Invoice#<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %>
+          <%= invoice.created_at.strftime("%A, %B %d, %Y") %>
+        </div>
+      <% end %>
+    </section>
   </div>
 
   <div class="column">
-    <h3>&emsp;<%= "Top Customers" %></h3>
+    <h2>&emsp;<%= "Top Customers" %></h2>
 
   </div>
 

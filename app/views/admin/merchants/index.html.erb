@@ -1,5 +1,39 @@
-<h3 id="links"; style="text-align:left;">&emsp;
-    Admin Dashboard<span style="float:right;"><%= render partial: 'partials/admin_links' %>&emsp;</span>
-</h3>
+<%= render partial: 'partials/admin/admin_navbar' %>
 
-<h3>Admin Merchants</h3>
+<div id='page-links'>
+  <%= link_to 'Create New Merchant', new_admin_merchant_path, class:'btn btn-primary btn-sm'%>
+</div>
+<br/>
+<div class='container' id='merchant-list'>
+  <div class='row'>
+    <div class='col'>
+      <div id='enabled-merchants'>
+        <h4>Enabled Merchants</h4>
+        <%= render partial: 'partials/admin/enable_disable_merchants', locals:{ merchants: @enabled_merchants, enable_disable: 'disable' }%>
+      </div>
+
+      <div id='disabled-merchants'>
+        <h4>Disabled Merchants</h4>
+        <%= render partial: 'partials/admin/enable_disable_merchants', locals:{ merchants: @disabled_merchants, enable_disable: 'enable' }%>
+      </div>
+    </div>
+    <div class='col text-center'>
+      <h4>Top Merchants</h4>
+      <table class='table table-hover'>
+        <thead>
+          <tr>
+            <th>Merchant Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @top_merchants.each do |merchant| %>
+            <tr id="item-<%=item.id%>">
+              <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -24,4 +24,12 @@ class Item < ApplicationRecord
       message << ", #{error}"
     end
   end
+
+  def self.enable
+    where(status: true)
+  end
+
+  def self.disable
+    where(status: false)
+  end
 end
