@@ -9,12 +9,4 @@ module ApplicationHelper
       return "class='alert alert-danger'".html_safe
     end
   end
-
-  def project_repo_name
-    PROJECT_REPO['name']
-  end
-
-  def project_repo_path
-    PROJECT_REPO['html_url']
-  end
 end
