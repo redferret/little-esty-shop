@@ -68,7 +68,7 @@ RSpec.describe "dashboard" do
     end
   end
 
-  describe 'disabled merchants list,' do
+  describe 'favorite customers,' do
     it 'displays the names of the top 5 customers' do
     transaction_1 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
     transaction_2 = FactoryBot.create(:transaction, result: "failed", invoice_id: @invoice_2.id)
