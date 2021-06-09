@@ -14,10 +14,10 @@ module GithubAPI
         @oauth_token = oauth_token
       end
 
-      def project_repo_for(username, repo_name)
-        request(
+      def project_repo
+        @_repo ||= request(
           http_method: :get,
-          endpoint: "users/#{username}/#{repo_name}"
+          endpoint: "/repos/redferret/little-esty-shop"
         )
       end
 
