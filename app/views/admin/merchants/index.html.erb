@@ -1,7 +1,7 @@
 <%= render partial: 'partials/admin/admin_navbar' %>
 
 <div id='page-links'>
-  <%= link_to 'Add New Merchant', new_admin_merchant_path, class:'btn btn-primary btn-sm'%>
+  <%= link_to 'Create New Merchant', new_admin_merchant_path, class:'btn btn-primary btn-sm'%>
 </div>
 <br/>
 <div class='container' id='merchant-list'>
@@ -9,12 +9,12 @@
     <div class='col'>
       <div id='enabled-merchants'>
         <h4>Enabled Merchants</h4>
-        <%= render partial: 'partials/admin/enable_disable_merchants', locals:{ merchants: @enabled_merchants, enable_disable: 'disable' }%>
+        <%= render partial: 'partials/admin/enable_disable_merchants', locals:{ merchants: @enabled_merchants, enable: false }%>
       </div>
 
       <div id='disabled-merchants'>
         <h4>Disabled Merchants</h4>
-        <%= render partial: 'partials/admin/enable_disable_merchants', locals:{ merchants: @disabled_merchants, enable_disable: 'enable' }%>
+        <%= render partial: 'partials/admin/enable_disable_merchants', locals:{ merchants: @disabled_merchants, enable: true }%>
       </div>
     </div>
     <div class='col text-center'>

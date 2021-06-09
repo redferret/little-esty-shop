@@ -23,9 +23,9 @@ RSpec.describe 'The merchants index page,' do
             click_link 'Enable'
           end
         end
-        
+
         expect(current_path).to eq admin_merchants_path
-        
+
         within '#enabled-merchants' do
           within "#merchant-#{@merchant_5.id}" do
             expect(page).to have_link(@merchant_5.name)
@@ -91,6 +91,17 @@ RSpec.describe 'The merchants index page,' do
           expect(page).to have_link(@merchant_4.name)
           expect(page).to have_link('Enable')
         end
+      end
+    end
+  end
+
+  describe 'create new merchant,' do
+    it 'has link to create new merchant which redirects to form' do
+      within '#page-links' do
+        expect(page).to have_link('Create New Merchant')
+
+        click_on 'Create New Merchant'
+        expect(current_path).to eq(new_admin_merchant_path)
       end
     end
   end

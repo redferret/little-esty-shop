@@ -1,4 +1,4 @@
-<h2>Add New Item Form</h2>
+<%= render partial: 'partials/merchants/navbar', locals: {merchant: @merchant}%>
 <br/>
 <%= form_with model: @item, url: merchant_items_path(@merchant), method: :post, id: 'new-item-form', local: true do |form| %>
   <div class='form-group'>

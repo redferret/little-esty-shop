@@ -1,0 +1,16 @@
+<table class='table table-hover'>
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.each do |item| %>
+      <tr id="item-<%=item.id%>">
+        <td><%= link_to item.name, merchant_item_path(merchant, item) %></td>
+        <td><%= enable_disable_link(enable, merchant, item) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
