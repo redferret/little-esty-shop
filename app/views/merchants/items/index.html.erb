@@ -12,13 +12,15 @@
   </div>
   <div class='row'>
     <div class='col'>
-      <h4><span>Enabled Items</span></h4>
+      <div id='enabled-items'>
+        <h4><span>Enabled Items</span></h4>
+        <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @enabled_items, merchant: @merchant, enable: false } %>
+      </div>
 
-      <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @enabled_items, merchant: @merchant, enable: false } %>
-
-      <h4>Disabled Items</h4>
-
-      <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @disabled_items, merchant: @merchant, enable: true }%>
+      <div id='disabled-items'>
+        <h4>Disabled Items</h4>
+        <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @disabled_items, merchant: @merchant, enable: true }%>
+      </div>
     </div>
     <div class='col text-center'>
       <h4>Top Items</h4>
