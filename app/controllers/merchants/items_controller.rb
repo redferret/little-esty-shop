@@ -8,6 +8,8 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def show
+    invoice_items = InvoiceItem.where(item_id: params[:id])
+    @total_revenue = InvoiceItem.total_revenue(invoice_items)
   end
 
   def new
