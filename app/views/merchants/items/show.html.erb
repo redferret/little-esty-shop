@@ -4,6 +4,7 @@
       <th>Item Name</th>
       <th>Unit Price</th>
       <th>Item Description</th>
+      <th>Total Revenue</th>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +12,7 @@
       <td><%= @item.name %></td>
       <td>$<%= @item.convert_unit_price_to_dollars %></td>
       <td><%= @item.description %></td>
+      <td>$<%= @total_revenue %></td>
     </tr>
   </tbody>
 </table>

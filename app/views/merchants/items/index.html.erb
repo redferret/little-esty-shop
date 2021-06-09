@@ -26,6 +26,16 @@
     </tbody>
   </table>
 </div>
+<div id='top-items'>
+  <h2>Top items</h2>
+  <% @top_5_items.each do |item| %>
+    <tr id="item-<%=item.id%>">
+      <td><%= @top_5_items.find_index(item) + 1 %>. <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></td>
+      <br>
+      <br>
+    </tr>
+  <% end %>
+</div>
 
 <div id='enabled-items'>
 <h3>Enabled Items</h3>
@@ -46,3 +56,4 @@
   </table>
 <% end %>
 </div>
+
