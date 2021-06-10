@@ -14,8 +14,22 @@ class Customer < ApplicationRecord
   end
 
   def self.most_successful_five ##admin dash
-    joins(invoices: :transactions).where('transactions.result = ?', 'success').select('customers.*, count(transactions.result) as most_success')
     # joins(:invoices).joins(:transactions)
-    # order(most_success: :desc).limit(5)
+    joins(invoices: :transactions)
+    .where('transactions.result = ?', 'success').group(:id).select('customers.*, count(transactions.id) as most_success').order(most_success: :desc).limit(5)
+  end
+
+  def count_best
+    Transaction.joins(invoice: :customer).where("customers.id = ?", self.id).where(transactions: {result: :success}).group('transactions.id').count.size
+    # self.joins(invoices: :transactions).group('transactions.id').where(transactions: {result: :success}).values.count
   end
 end
+
+#   def self.top_five
+#     joins(invoices: :transactions)
+#     .group(:id)
+#     .where("transactions.result = ?", 1)
+#     .select("customers.*, count(transactions.id) as num_transactions")
+#     .order(num_transactions: :desc)
+#     .limit(5)
+#   end
