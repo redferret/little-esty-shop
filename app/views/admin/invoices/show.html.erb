@@ -1,5 +1,13 @@
 <%= render partial: 'partials/admin/admin_navbar' %>
 
+<div id='invoice-info'>
+  <h2>Invoice ID: <%= @invoice.id %></h2>
+  <p>Status: <%= @invoice.status %></p>
+  <p>Created At: <%= @invoice.created_at %></p>
+  <p>Customer: <%= @customer.first_name  %> <%= @customer.last_name%></p>
+</div>
+<br/>
+
 <table class='table' id='invoice-items-list'>
   <thead>
     <tr>
@@ -7,7 +15,7 @@
       <th>Quantity</th>
       <th>Unit Price</th>
       <th>Status</th>
-    </th>
+    </tr>
   </thead>
   <tbody>
     <% @invoice_items.each do |invoice_item| %>
@@ -20,4 +28,3 @@
     <% end %>
   </tbody>
 </table>
-
