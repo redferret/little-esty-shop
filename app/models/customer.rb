@@ -10,6 +10,7 @@ class Customer < ApplicationRecord
     #order them -desc? and set the limit of 5
     joins(:transactions).where({ transactions: { result: "success"} }).
     group(:id).select("customers.*, count('transaction.result') as top_five").
-    order(top_five: :desc).limit(5)
+    order(top_five: :desc).
+    limit(5)
   end
 end
