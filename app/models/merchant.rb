@@ -13,4 +13,12 @@ class Merchant < ApplicationRecord
   def self.disabled_merchants
     where(enabled: false)
   end
+
+  def enabled_items
+    items.where(status: true)
+  end
+
+  def disabled_items
+    items.where(status: false)
+  end
 end
