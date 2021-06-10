@@ -70,10 +70,12 @@ RSpec.describe "dashboard" do
 
   describe 'favorite customers,' do
     it 'displays the names of the top 5 customers' do
+      @customer_1 = FactoryBot.create(:customer) ##
       @customer_2 = FactoryBot.create(:customer)
       @customer_3 = FactoryBot.create(:customer)
       @customer_4 = FactoryBot.create(:customer)
       @customer_5 = FactoryBot.create(:customer)
+      @customer_6 = FactoryBot.create(:customer) ##
 
       @invoice_1 = FactoryBot.create(:invoice, customer: @customer_2)
       @invoice_2 = FactoryBot.create(:invoice, customer: @customer_3)
@@ -96,18 +98,24 @@ RSpec.describe "dashboard" do
 
       within('#favorite-customers') do
         expect(page).to have_content("Favorite Customers: Top 5")
-save_and_open_page
-        expect(page).to have_content(@customer_2.first_name)
-        expect(page).to have_content(@customer_2.last_name)
-        expect(page).to have_content(@customer_2.transactions.success_count)
+        save_and_open_page
+        within("#customers-#{@customer_2.id}") do
+          expect(page).to have_content(@customer_2.first_name)
+          expect(page).to have_content(@customer_2.last_name)
+          expect(page).to have_content(@customer_2.transactions.success_count)
+        end
 
-        expect(page).to have_content(@customer_3.first_name)
-        expect(page).to have_content(@customer_3.last_name)
-        expect(page).to have_content(@customer_3.transactions.success_count)
+        within("#customers-#{@customer_3.id}") do
+          expect(page).to have_content(@customer_3.first_name)
+          expect(page).to have_content(@customer_3.last_name)
+          expect(page).to have_content(@customer_3.transactions.success_count)
+        end
 
-        expect(page).to have_content(@customer_4.first_name)
-        expect(page).to have_content(@customer_4.last_name)
-        expect(page).to have_content(@customer_4.transactions.success_count)
+        within("#customers-#{@customer_4.id}") do
+          expect(page).to have_content(@customer_4.first_name)
+          expect(page).to have_content(@customer_4.last_name)
+          expect(page).to have_content(@customer_4.transactions.success_count)
+        end
       end
     end
   end

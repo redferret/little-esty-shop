@@ -26,14 +26,17 @@
     </div>
     <div class='col' id='favorite-customers'>
       <h3>Favorite Customers: Top 5</h3>
-        <table class='table'>
-          <thead>
-            <tr id="customers">
-              <% @customers.top_five_customers.each do |customer| %>
-                <td <%= customer.id %> ><%= customer.first_name %> <%= customer.last_name %>, <%= customer.transactions.success_count %> purchase(s)</td>
-              <% end %>
-            </tr>
-          </thead>
-        </div>
-      </div>
+      <table class='table'>
+        <thead>
+        </thead>
+        <tbody>
+            <% @customers.top_five_customers.each do |customer| %>
+              <tr id="customers-<%= customer.id %>">
+              <td <%= customer.id %> ><%= customer.first_name %> <%= customer.last_name %>, <%= customer.transactions.success_count %> purchase(s)</td>
+              </tr>
+            <% end %>
+        </tbody>
+      </table>
     </div>
+  </div>
+</div>

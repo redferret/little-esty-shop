@@ -16,5 +16,9 @@ RSpec.describe "As an admin" do
 
       expect(current_path).to eq(edit_admin_merchant_path(@merchant_1))
     end
+
+    it 'displays the merchant name' do
+      expect(page).to have_content(@merchant_1.name)
+    end
   end
 end

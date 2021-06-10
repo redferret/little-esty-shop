@@ -3,7 +3,7 @@ class Customer < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :merchants, through: :invoices
 
-  def self.top_five_customers
+  def self.top_five_customers ##favorite
     #joins with transactions ?
     # where result: :success
     # select all customers  - count transaction.result - == top_five
@@ -11,5 +11,11 @@ class Customer < ApplicationRecord
     joins(:transactions).where({ transactions: { result: "success"} }).
     group(:id).select("customers.*, count('transaction.result') as top_five").
     order(top_five: :desc).limit(5)
+  end
+
+  def self.most_successful_five ##admin dash
+    joins(invoices: :transactions).where('transactions.result = ?', 'success').select('customers.*, count(transactions.result) as most_success')
+    # joins(:invoices).joins(:transactions)
+    # order(most_success: :desc).limit(5)
   end
 end
