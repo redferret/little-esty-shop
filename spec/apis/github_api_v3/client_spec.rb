@@ -17,7 +17,7 @@ RSpec.describe GithubAPI::V3::Client do
         @expected_repo_hash = [{'name' => 'repo_name_1'}]
 
         github_client = client_mock
-        user_repo = github_client.project_repo_for('redferret', 'repo_name_1')
+        user_repo = github_client.project_repo
 
         expect(user_repo).to be_an Array
         expect(user_repo).to eq @expected_repo_hash
