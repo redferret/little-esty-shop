@@ -96,18 +96,24 @@ RSpec.describe "dashboard" do
 
       within('#favorite-customers') do
         expect(page).to have_content("Favorite Customers: Top 5")
-save_and_open_page
-        expect(page).to have_content(@customer_2.first_name)
-        expect(page).to have_content(@customer_2.last_name)
-        expect(page).to have_content(@customer_2.transactions.success_count)
 
-        expect(page).to have_content(@customer_3.first_name)
-        expect(page).to have_content(@customer_3.last_name)
-        expect(page).to have_content(@customer_3.transactions.success_count)
+        within("#customer-#{@customer_2.id}") do
+          expect(page).to have_content(@customer_2.first_name)
+          expect(page).to have_content(@customer_2.last_name)
+          expect(page).to have_content(@customer_2.transactions.success_count)
+        end
 
-        expect(page).to have_content(@customer_4.first_name)
-        expect(page).to have_content(@customer_4.last_name)
-        expect(page).to have_content(@customer_4.transactions.success_count)
+        within("#customer-#{@customer_3.id}") do
+          expect(page).to have_content(@customer_3.first_name)
+          expect(page).to have_content(@customer_3.last_name)
+          expect(page).to have_content(@customer_3.transactions.success_count)
+        end
+
+        within("#customer-#{@customer_4.id}") do
+          expect(page).to have_content(@customer_4.first_name)
+          expect(page).to have_content(@customer_4.last_name)
+          expect(page).to have_content(@customer_4.transactions.success_count)
+        end
       end
     end
   end
