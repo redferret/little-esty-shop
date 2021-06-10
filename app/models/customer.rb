@@ -24,12 +24,3 @@ class Customer < ApplicationRecord
     # self.joins(invoices: :transactions).group('transactions.id').where(transactions: {result: :success}).values.count
   end
 end
-
-#   def self.top_five
-#     joins(invoices: :transactions)
-#     .group(:id)
-#     .where("transactions.result = ?", 1)
-#     .select("customers.*, count(transactions.id) as num_transactions")
-#     .order(num_transactions: :desc)
-#     .limit(5)
-#   end
