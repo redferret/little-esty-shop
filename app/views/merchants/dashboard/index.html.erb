@@ -24,8 +24,16 @@
         </tbody>
       </table>
     </div>
-    <div class='col'>
-      <h2>Favorite Customers</h2>
+    <div class='col' id='favorite-customers'>
+      <h3>Favorite Customers: Top 5</h3>
+        <table class='table'>
+          <thead>
+            <tr id="customers">
+              <% @customers.top_five_customers.each do |customer| %>
+                <td <%= customer.id %> ><%= customer.first_name %> <%= customer.last_name %>, <%= customer.transactions.success_count %> purchase(s)</td>
+              <% end %>
+            </tr>
+          </thead>
+        </div>
+      </div>
     </div>
-  </div>
-</div>

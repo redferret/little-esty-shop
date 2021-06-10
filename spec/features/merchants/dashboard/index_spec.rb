@@ -70,18 +70,44 @@ RSpec.describe "dashboard" do
 
   describe 'favorite customers,' do
     it 'displays the names of the top 5 customers' do
-    transaction_1 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
-    transaction_2 = FactoryBot.create(:transaction, result: "failed", invoice_id: @invoice_2.id)
-    transaction_3 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_3.id)
-    transaction_4 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_4.id)
-    transaction_5 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
-    transaction_6 = FactoryBot.create(:transaction, result: "failed", invoice_id: @invoice_2.id)
-    transaction_7 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_3.id)
-    transaction_8 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
+      @customer_2 = FactoryBot.create(:customer)
+      @customer_3 = FactoryBot.create(:customer)
+      @customer_4 = FactoryBot.create(:customer)
+      @customer_5 = FactoryBot.create(:customer)
 
+      @invoice_1 = FactoryBot.create(:invoice, customer: @customer_2)
+      @invoice_2 = FactoryBot.create(:invoice, customer: @customer_3)
+      @invoice_3 = FactoryBot.create(:invoice, customer: @customer_4)
+      @invoice_4 = FactoryBot.create(:invoice, customer: @customer_5)
 
-      within '#top-customers' do
-        expect(page).to have_content()
+      @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 'pending')
+      @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 'packaged')
+      @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 'shipped')
+      @invoice_item_4 = FactoryBot.create(:invoice_item, item: @item_4, invoice: @invoice_4, status: 'packaged')
+
+      transaction_1 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
+      transaction_2 = FactoryBot.create(:transaction, result: "failed", invoice_id: @invoice_2.id)
+      transaction_3 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_3.id)
+      transaction_4 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_4.id)
+      transaction_5 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
+      transaction_6 = FactoryBot.create(:transaction, result: "failed", invoice_id: @invoice_2.id)
+      transaction_7 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_3.id)
+      transaction_8 = FactoryBot.create(:transaction, result: "success", invoice_id: @invoice_1.id)
+
+      within('#favorite-customers') do
+        expect(page).to have_content("Favorite Customers: Top 5")
+save_and_open_page
+        expect(page).to have_content(@customer_2.first_name)
+        expect(page).to have_content(@customer_2.last_name)
+        expect(page).to have_content(@customer_2.transactions.success_count)
+
+        expect(page).to have_content(@customer_3.first_name)
+        expect(page).to have_content(@customer_3.last_name)
+        expect(page).to have_content(@customer_3.transactions.success_count)
+
+        expect(page).to have_content(@customer_4.first_name)
+        expect(page).to have_content(@customer_4.last_name)
+        expect(page).to have_content(@customer_4.transactions.success_count)
       end
     end
   end
