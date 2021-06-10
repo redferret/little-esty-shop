@@ -22,16 +22,21 @@
         <%= render partial: 'partials/merchants/enable_disable_item_table', locals: { items: @disabled_items, merchant: @merchant, enable: true }%>
       </div>
     </div>
-    <div class='col text-center'>
-      <h4>Top Items</h4>
+    <div class='col'>
+      <h4 class='text-center'>Top Items</h4>
+      <table class='table' id='top-items'>
+        <thead>
+          <tr></tr>
+        </thead>
+        <tbody>
+          <% @top_5_items.each do |item| %>
+            <tr id="item-<%=item.id%>">
+              <td><%= @top_5_items.find_index(item) + 1 %>. <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-    <div id='top-items'>
-      <h2>Top items</h2>
-      <% @top_5_items.each do |item| %>
-        <tr id="item-<%=item.id%>">
-          <td><%= @top_5_items.find_index(item) + 1 %>. <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></td>
-        </tr>
-      <% end %>
     </div>
   </div>
 </div>
