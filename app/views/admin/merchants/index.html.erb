@@ -18,8 +18,8 @@
       </div>
     </div>
     <div class='col text-center'>
-      <h4>Top Merchants</h4>
-      <table class='table table-hover'>
+      <h4>Top 5 Merchants</h4>
+      <table class='table table-hover', id="top-merchants">
         <thead>
           <tr>
             <th>Merchant Name</th>
@@ -28,8 +28,8 @@
         </thead>
         <tbody>
           <% @top_merchants.each do |merchant| %>
-            <tr id="item-<%=item.id%>">
-              <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+            <tr>
+              <td><%= @top_merchants.find_index(merchant) + 1 %>. <%= link_to merchant.name, admin_merchant_path(merchant) %></td>
             </tr>
           <% end %>
         </tbody>

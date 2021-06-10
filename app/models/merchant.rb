@@ -3,7 +3,7 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :items
 
   def self.top_merchants
-    []
+    joins(:invoice_items).order(Arel.sql('invoice_items.unit_price * invoice_items.quantity DESC')).limit(5)
   end
 
   def self.enabled_merchants

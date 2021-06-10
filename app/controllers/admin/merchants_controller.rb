@@ -26,6 +26,7 @@ class Admin::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
   end
 
+
   def new
     @merchant = Merchant.new
   end
@@ -38,6 +39,7 @@ class Admin::MerchantsController < ApplicationController
       redirect_to admin_merchants_path
     end
   end
+
 
   private
 
