@@ -13,7 +13,7 @@ class Customer < ApplicationRecord
     order(top_five: :desc).limit(5)
   end
 
-  def self.most_successful_five ##admin dash
+  def self.most_successful_five
     # joins(:invoices).joins(:transactions)
     joins(invoices: :transactions)
     .where('transactions.result = ?', 'success').group(:id).select('customers.*, count(transactions.id) as most_success').order(most_success: :desc).limit(5)
